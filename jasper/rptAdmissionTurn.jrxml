@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreportContactos" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8cc4021f-38c0-4fb7-b355-055db5bb2f6b">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select distinct upper(c.contact_name) contact_name, upper(c.contact_last_name) contact_last_name, upper(c.contact_relationship) contact_relationship, p.id tel_id, p.name tel, p.comment, pt.name tipo_tel
+from yacare.physical_person_emergency_contacts c
+join yacare.physical_person pp on pp.id = c.physical_person_id and pp.state_enable=true
+and pp.id = $P{id}
+left join yacare.phone p on p.id = c.phone_id and p.state_enable=true
+left join yacare.phone_type pt on pt.id = p.phone_type_id
+where c.state_enable=true]]>
+	</queryString>
+	<field name="contact_name" class="java.lang.String"/>
+	<field name="contact_last_name" class="java.lang.String"/>
+	<field name="contact_relationship" class="java.lang.String"/>
+	<field name="tel_id" class="java.lang.String"/>
+	<field name="tel" class="java.lang.String"/>
+	<field name="comment" class="java.lang.String"/>
+	<field name="tipo_tel" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="86" splitType="Stretch">
+			<textField>
+				<reportElement positionType="Float" x="0" y="46" width="554" height="20" uuid="defb2170-1b0a-43b4-b23f-d23e5da44258"/>
+				<textElement markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true'>"+
+    ( ($F{tel} == null)?"<style  forecolor='red' isBold='false'>A completar TELEFONO. </style>":$F{tel} )+
+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="66" width="554" height="20" uuid="aecbd930-12a2-4b90-96c2-f589a955fc24"/>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="5" width="554" height="20" uuid="49477dab-9ff9-4631-a5ef-2203d1c819b9"/>
+				<textElement markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true'>"+
+    ( ($F{contact_last_name} == null)?"<style  forecolor='red' isBold='false'>A completar APELLIDO. </style>":($F{contact_last_name}+", ") )+
+    ( ($F{contact_name} == null)?"<style  forecolor='red' isBold='false'>A completar NOMBRE </style>":$F{contact_name} )+
+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="25" width="554" height="20" uuid="95603282-53d1-4dc5-b73e-0be5c3c66dfc"/>
+				<textElement markup="styled">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true'>"+
+    ( ($F{contact_relationship} == null)?"<style  forecolor='red' isBold='false'>A completar Tipo de Relación. </style>":"Tipo de Relación: " + $F{contact_relationship} )+
+"</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
