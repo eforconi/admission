@@ -180,7 +180,7 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["<style isBold='true'>Grupo Sanguíneo:</style> " + $F{group_c}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="96" width="508" height="1" uuid="16a4f24b-2c45-412d-af86-02db9714f590"/>
+				<reportElement x="0" y="96" width="462" height="1" uuid="16a4f24b-2c45-412d-af86-02db9714f590"/>
 				<graphicElement>
 					<pen lineStyle="Double"/>
 				</graphicElement>
@@ -396,7 +396,7 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["<style isBold='true'>Fecha de nacimiento:</style> " + $F{t2_birth_date}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="225" width="508" height="1" uuid="89235285-f094-49fa-bb5e-e0bdc7de6069"/>
+				<reportElement x="0" y="225" width="462" height="1" uuid="89235285-f094-49fa-bb5e-e0bdc7de6069"/>
 				<graphicElement>
 					<pen lineStyle="Double"/>
 				</graphicElement>
