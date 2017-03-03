@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreportContactos" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8cc4021f-38c0-4fb7-b355-055db5bb2f6b">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="24"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select aa.id,
+(CASE WHEN (g_c.code is not null AND g_c.code ='M') THEN TRUE
+      WHEN (g_c.code is not null AND g_c.code ='F') THEN FALSE
+ ELSE TRUE
+END) gen_code_c,
+(CASE WHEN shift_1 IS NULL THEN NULL
+      WHEN shift_1=true THEN 'Sábados de 8:00 a 10:20 hs.'
+      WHEN shift_1=false THEN 'Sábados de 10:30 a 12:50 hs.'
+ END )ship
+from yacare_admission.admission_form aa
+left join yacare_admission.person_gender g_c on aa.c_person_gender_id= g_c.id and g_c.erased=false
+
+where aa.id = $P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.String"/>
+	<field name="gen_code_c" class="java.lang.Boolean"/>
+	<field name="ship" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="217" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="17" width="555" height="20" uuid="64885ab5-60b5-43f8-b338-2540f407a2b6"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="SansSerif" size="14" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Inscripción para el Curso Preparatorio de Apoyo para el Ingreso]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="6" y="37" width="503" height="97" uuid="fa462388-604f-46a3-bc9f-f4fb4a39a170"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   Asimismo solicito la inscripción para el Curso de Nivelación - Ingreso a Primer Año del Colegio en el horario: " +
+"\n"+
+"\n        "+ $F{ship} +
+"\n"+
+"\n Acepto que el Colegio de acuerdo a la cantidad de inscriptos para el Curso pueda disponer la inclusión " + (($F{gen_code_c} == null)?"del":(($F{gen_code_c}.booleanValue()==true)?"del":"de la")) + " aspirante en un horario distinto por el que optó."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="167" width="192" height="38" uuid="b32d90ea-eb03-481d-824d-9728058e9f92"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["...................................................... \nFirma del Padre, Madre o Tutor"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="6" y="134" width="503" height="20" uuid="8d827a6e-6064-494d-988d-778f32d79163"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["La recepción de la presente no importa su aceptación; está sujeta a su resolución a lo que disponga la Autoridad competente en función de las normas vigentes en el ámbito de este Colegio y de la Universidad Nacional de Córdoba."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="5" width="509" height="1" uuid="467097ca-09e2-4f99-b33e-e84a83d13e4f"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

@@ -5,60 +5,68 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="id" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select distinct upper(c.contact_name) contact_name, upper(c.contact_last_name) contact_last_name, upper(c.contact_relationship) contact_relationship, p.id tel_id, p.name tel, p.comment, pt.name tipo_tel
-from yacare.physical_person_emergency_contacts c
-join yacare.physical_person pp on pp.id = c.physical_person_id and pp.state_enable=true
-and pp.id = $P{id}
-left join yacare.phone p on p.id = c.phone_id and p.state_enable=true
-left join yacare.phone_type pt on pt.id = p.phone_type_id
-where c.state_enable=true]]>
+		<![CDATA[select aa.id,
+trim(COALESCE(aa.c_surnames,'')|| ', ' || COALESCE(aa.c_first_name,'') || ' ' || COALESCE(aa.c_other_names,''))c_names,
+(CASE WHEN (g_c.code is not null AND g_c.code ='M') THEN TRUE
+      WHEN (g_c.code is not null AND g_c.code ='F') THEN FALSE
+ ELSE TRUE
+END) gen_code_c,
+ss.description turn,
+trim(COALESCE(aa.s_surnames,'')|| ', ' || COALESCE(aa.s_first_name,'') || ' ' || COALESCE(aa.s_other_names,''))c_student,
+aa.s_dni_number,
+aa.s_division,
+aa.s_others_comment
+
+from yacare_admission.admission_form aa
+left join yacare_admission.person_gender g_c on aa.c_person_gender_id= g_c.id and g_c.erased=false
+left join yacare_admission.school_shift ss on aa.school_shift_id= ss.id
+where aa.id = $P{id}]]>
 	</queryString>
-	<field name="contact_name" class="java.lang.String"/>
-	<field name="contact_last_name" class="java.lang.String"/>
-	<field name="contact_relationship" class="java.lang.String"/>
-	<field name="tel_id" class="java.lang.String"/>
-	<field name="tel" class="java.lang.String"/>
-	<field name="comment" class="java.lang.String"/>
-	<field name="tipo_tel" class="java.lang.String"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="c_names" class="java.lang.String"/>
+	<field name="gen_code_c" class="java.lang.Boolean"/>
+	<field name="turn" class="java.lang.String"/>
+	<field name="c_student" class="java.lang.String"/>
+	<field name="s_dni_number" class="java.lang.String"/>
+	<field name="s_division" class="java.lang.String"/>
+	<field name="s_others_comment" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="86" splitType="Stretch">
-			<textField>
-				<reportElement positionType="Float" x="0" y="46" width="554" height="20" uuid="defb2170-1b0a-43b4-b23f-d23e5da44258"/>
-				<textElement markup="styled">
-					<font fontName="SansSerif" size="10"/>
+		<band height="185" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="555" height="20" uuid="64885ab5-60b5-43f8-b338-2540f407a2b6"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="SansSerif" size="14" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>"+
-    ( ($F{tel} == null)?"<style  forecolor='red' isBold='false'>A completar TELEFONO. </style>":$F{tel} )+
-"</style>"]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" x="0" y="66" width="554" height="20" uuid="aecbd930-12a2-4b90-96c2-f589a955fc24"/>
-				<textElement>
-					<font fontName="SansSerif" size="10"/>
+				<text><![CDATA[Solicitud de Asignación de Turno]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="2" y="23" width="503" height="100" uuid="fa462388-604f-46a3-bc9f-f4fb4a39a170"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{comment}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="Float" x="0" y="5" width="554" height="20" uuid="49477dab-9ff9-4631-a5ef-2203d1c819b9"/>
-				<textElement markup="styled">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>"+
-    ( ($F{contact_last_name} == null)?"<style  forecolor='red' isBold='false'>A completar APELLIDO. </style>":($F{contact_last_name}+", ") )+
-    ( ($F{contact_name} == null)?"<style  forecolor='red' isBold='false'>A completar NOMBRE </style>":$F{contact_name} )+
-"</style>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["   Por la presente y de acuerdo a la reglamentación vigente (Res.377/98 del H.C.S.) manifiesto que prefiero para mi hij" + (($F{gen_code_c} == null)?"o":(($F{gen_code_c}.booleanValue()==true)?"o":"a")) +
+" " + $F{c_names} + " aspirante al ingreso en ese Establecimiento el Turno " + $F{turn} + " para la asistencia a clase."+
+"\n"+
+"\n La elección se basa en el siguiente motivo:" +
+"\n"+
+"\n" + (($F{s_dni_number}==null)?$F{s_others_comment}:("Hermano en el Colegio: "+ $F{c_student}+ "\nDivisión: " + $F{s_division}))]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="0" y="25" width="554" height="20" uuid="95603282-53d1-4dc5-b73e-0be5c3c66dfc"/>
-				<textElement markup="styled">
+				<reportElement x="240" y="145" width="192" height="38" uuid="b32d90ea-eb03-481d-824d-9728058e9f92"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>"+
-    ( ($F{contact_relationship} == null)?"<style  forecolor='red' isBold='false'>A completar Tipo de Relación. </style>":"Tipo de Relación: " + $F{contact_relationship} )+
-"</style>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["...................................................... \nFirma del Padre, Madre o Tutor"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="2" y="123" width="503" height="20" uuid="8d827a6e-6064-494d-988d-778f32d79163"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["El suscripto declara que acepta el turno que se asigne al aspirante por aplicación de la Reglamentación vigente (Res.377/98 del H.C.S.) y se compromete bajo fe de juramento a no realizar ninguna gestión tendiente a modificar tal situación."]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -18862,6 +18862,8 @@ CREATE TABLE yacare_admission.admission_form
   s_other_names character varying,
   s_surnames character varying,
   s_dni_number character varying,
+  s_division character varying,
+  s_others_comment  character varying,
 
   -- Horario (turno) de cursado del cursillo
   shift_1 boolean, -- en caso de falso es el 2, en caso de null es que no toma el cursillo
