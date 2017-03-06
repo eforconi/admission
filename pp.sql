@@ -18779,7 +18779,8 @@ CREATE TABLE yacare_admission.admission_form
   id character varying NOT NULL DEFAULT uuid_generate_v4(),
   --erased boolean NOT NULL DEFAULT false,
 
-  date_form timestamp NOT NULL,		
+  date_form timestamp NOT NULL,
+  year_calendar integer not null,		
 
   -- C --> CANDIDATE (ASPIRANTE) ATT
   c_first_name character varying NOT NULL, 
