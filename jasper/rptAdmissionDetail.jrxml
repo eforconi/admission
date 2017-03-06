@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionFile" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="92"/>
+	<property name="ireport.y" value="155"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -19,15 +19,15 @@ aa.c_cuil_number,
 c_c.name_iso c_birth_country,
 prov.name c_birth_province,
 aa.c_birth_locality,
-aa.c_address_street,
-aa.c_address_street_number,
-aa.c_address_floor,
-aa.c_address_room,
-aa.c_address_building,
-aa.c_address_neightbourhood,
-aa.c_address_zip_code,
-aa.c_address_locality,
-aa.c_address_comment,
+COALESCE(aa.c_address_street,'--') c_address_street,
+COALESCE(aa.c_address_street_number,'--') c_address_street_number,
+COALESCE(aa.c_address_floor,'--') c_address_floor,
+COALESCE(aa.c_address_room,'--') c_address_room,
+COALESCE(aa.c_address_building,'--') c_address_building,
+COALESCE(aa.c_address_neightbourhood,'--') c_address_neightbourhood,
+COALESCE(aa.c_address_zip_code,'--') c_address_zip_code,
+COALESCE(aa.c_address_locality,'--') c_address_locality,
+COALESCE(aa.c_address_comment,'--') c_address_comment,
 
 
 --t1
@@ -36,18 +36,18 @@ g_t1.name gen_t1,
 to_char(aa.t1_birth_date, 'dd/MM/yyyy')t1_birth_date,
 aa.t1_dni_number,
 aa.t1_cuil_number,
-aa.t1_profession,
-c_t1.name_iso t1_nationality_country,
-aa.t1_address_street,
-aa.t1_address_street_number,
-aa.t1_address_floor,
-aa.t1_address_room,
-aa.t1_address_building,
-aa.t1_address_comment,
-aa.t1_address_locality,
-aa.t1_address_zip_code,
-aa.t1_address_neightbourhood,
-aa.t1_email,
+COALESCE(aa.t1_profession,'--') t1_profession,
+COALESCE(c_t1.name_iso,'--') t1_nationality_country,
+COALESCE(aa.t1_address_street,'--') t1_address_street,
+COALESCE(aa.t1_address_street_number,'--') t1_address_street_number,
+COALESCE(aa.t1_address_floor,'--') t1_address_floor,
+COALESCE(aa.t1_address_room,'--') t1_address_room,
+COALESCE(aa.t1_address_building,'--') t1_address_building,
+COALESCE(aa.t1_address_neightbourhood,'--') t1_address_neightbourhood,
+COALESCE(aa.t1_address_zip_code,'--') t1_address_zip_code,
+COALESCE(aa.t1_address_locality,'--') t1_address_locality,
+COALESCE(aa.t1_address_comment,'--') t1_address_comment,
+COALESCE(aa.t1_email,'--') t1_email,
 aa.t1_phone1_number,
 aa.t1_phone2_number,
 fam_t1.name famT1,
@@ -59,18 +59,19 @@ g_t2.name gen_t2,
 to_char(aa.t2_birth_date, 'dd/MM/yyyy')t2_birth_date,
 aa.t2_dni_number,
 aa.t2_cuil_number,
-aa.t2_profession,
-c_t2.name_iso t2_nationality_country,
-aa.t2_address_street,
-aa.t2_address_street_number,
-aa.t2_address_floor,
-aa.t2_address_room,
-aa.t2_address_building,
-aa.t2_address_comment,
-aa.t2_address_locality,
-aa.t2_address_zip_code,
-aa.t2_address_neightbourhood,
-aa.t2_email,
+COALESCE(aa.t2_profession,'--') t2_profession,
+COALESCE(c_t2.name_iso,'--') t2_nationality_country,
+COALESCE(aa.t2_address_street,'--') t2_address_street,
+COALESCE(aa.t2_address_street_number,'--') t2_address_street_number,
+COALESCE(aa.t2_address_floor,'--') t2_address_floor,
+COALESCE(aa.t2_address_room,'--') t2_address_room,
+COALESCE(aa.t2_address_building,'--') t2_address_building,
+COALESCE(aa.t2_address_neightbourhood,'--') t2_address_neightbourhood,
+COALESCE(aa.t2_address_zip_code,'--') t2_address_zip_code,
+COALESCE(aa.t2_address_locality,'--') t2_address_locality,
+COALESCE(aa.t2_address_comment,'--') t2_address_comment,
+
+COALESCE(aa.t2_email,'--') t2_email,
 aa.t2_phone1_number,
 aa.t2_phone2_number,
 fam_t2.name famT2,
@@ -123,10 +124,10 @@ WHERE aa.id=$P{id}]]>
 	<field name="t1_address_floor" class="java.lang.String"/>
 	<field name="t1_address_room" class="java.lang.String"/>
 	<field name="t1_address_building" class="java.lang.String"/>
-	<field name="t1_address_comment" class="java.lang.String"/>
-	<field name="t1_address_locality" class="java.lang.String"/>
-	<field name="t1_address_zip_code" class="java.lang.String"/>
 	<field name="t1_address_neightbourhood" class="java.lang.String"/>
+	<field name="t1_address_zip_code" class="java.lang.String"/>
+	<field name="t1_address_locality" class="java.lang.String"/>
+	<field name="t1_address_comment" class="java.lang.String"/>
 	<field name="t1_email" class="java.lang.String"/>
 	<field name="t1_phone1_number" class="java.lang.Integer"/>
 	<field name="t1_phone2_number" class="java.lang.Integer"/>
@@ -144,10 +145,10 @@ WHERE aa.id=$P{id}]]>
 	<field name="t2_address_floor" class="java.lang.String"/>
 	<field name="t2_address_room" class="java.lang.String"/>
 	<field name="t2_address_building" class="java.lang.String"/>
-	<field name="t2_address_comment" class="java.lang.String"/>
-	<field name="t2_address_locality" class="java.lang.String"/>
-	<field name="t2_address_zip_code" class="java.lang.String"/>
 	<field name="t2_address_neightbourhood" class="java.lang.String"/>
+	<field name="t2_address_zip_code" class="java.lang.String"/>
+	<field name="t2_address_locality" class="java.lang.String"/>
+	<field name="t2_address_comment" class="java.lang.String"/>
 	<field name="t2_email" class="java.lang.String"/>
 	<field name="t2_phone1_number" class="java.lang.Integer"/>
 	<field name="t2_phone2_number" class="java.lang.Integer"/>
@@ -157,11 +158,11 @@ WHERE aa.id=$P{id}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="355" splitType="Stretch">
+		<band height="349" splitType="Stretch">
 			<staticText>
 				<reportElement x="2" y="4" width="504" height="15" uuid="7375b376-9a8c-4de4-a7a2-228853e1a761"/>
 				<textElement markup="styled">
-					<font fontName="SansSerif" size="10" isBold="true" isPdfEmbedded="true"/>
+					<font fontName="SansSerif" size="8" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[DATOS DEL ALUMNO]]></text>
 			</staticText>
@@ -180,7 +181,7 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["<style isBold='true'>Grupo Sanguíneo:</style> " + $F{group_c}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="100" width="462" height="1" uuid="16a4f24b-2c45-412d-af86-02db9714f590"/>
+				<reportElement x="0" y="111" width="511" height="1" uuid="16a4f24b-2c45-412d-af86-02db9714f590"/>
 				<graphicElement>
 					<pen lineStyle="Double"/>
 				</graphicElement>
@@ -232,7 +233,8 @@ WHERE aa.id=$P{id}]]>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>Domicilio:</style> Calle: " +$F{c_address_street} + " N° " + $F{c_address_street_number}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold='true'>Domicilio:</style> Calle: " +$F{c_address_street} + " N° " + $F{c_address_street_number} + " Piso:" + $F{c_address_floor} + " Departamento: "+ $F{c_address_room}
++ " Edificio:" + $F{c_address_building}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="4" y="85" width="146" height="12" uuid="2ead207e-963f-47c1-b820-b9ecfbacb4c6"/>
@@ -242,174 +244,169 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["<style isBold='true'>Barrio:</style> " +$F{t1_address_neightbourhood}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="285" y="146" width="220" height="12" uuid="09852ad9-aa89-4cd7-b857-9059e2ac79d7"/>
+				<reportElement x="285" y="144" width="221" height="12" uuid="09852ad9-aa89-4cd7-b857-9059e2ac79d7"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Género:</style> " +$F{gen_t1}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="6" y="120" width="502" height="12" uuid="ad3299de-9940-4305-b414-68163214abc0"/>
+				<reportElement x="4" y="131" width="375" height="12" uuid="ad3299de-9940-4305-b414-68163214abc0"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Apellido y Nombre</style>(según DNI): " + $F{tutor1_names}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="4" y="104" width="504" height="15" uuid="81199fcc-e897-4740-aa00-0bee2aebb6ab"/>
-				<textElement markup="styled">
-					<font fontName="SansSerif" size="10" isBold="true" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[DATOS DEL RESPONSABLE LEGAL]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="6" y="146" width="146" height="12" uuid="70c29c40-2670-4550-b7bc-416efd784cf5"/>
+				<reportElement x="4" y="115" width="568" height="15" uuid="eb0bc6fe-6145-44af-bc81-519af265acd4"/>
+				<textElement markup="styled">
+					<font fontName="SansSerif" size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DATOS DEL RESPONSABLE LEGAL <style fontName='SansSerif' size='7' isBold='false'>(Se consignarán datos de Tutor siempre que medie Resolución Judicial, acompañar dicha documentación) </style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="144" width="146" height="12" uuid="70c29c40-2670-4550-b7bc-416efd784cf5"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Fecha de nacimiento:</style> " + $F{t1_birth_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="152" y="146" width="133" height="12" uuid="afc4b4ef-dba3-412d-a704-36d37e519b34"/>
+				<reportElement x="151" y="144" width="133" height="12" uuid="afc4b4ef-dba3-412d-a704-36d37e519b34"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>DNI:</style> " + $F{t1_dni_number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="6" y="159" width="147" height="12" uuid="181a898e-4ad3-436f-96c7-987500a1c45e"/>
+				<reportElement x="4" y="157" width="147" height="12" uuid="181a898e-4ad3-436f-96c7-987500a1c45e"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Profesión:</style> " + $F{t1_profession}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="6" y="172" width="502" height="12" uuid="ea5ed14a-8cd2-4377-b6ac-5bb5cea7cef2"/>
+				<reportElement x="4" y="170" width="502" height="12" uuid="ea5ed14a-8cd2-4377-b6ac-5bb5cea7cef2"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>Domicilio:</style> Calle: " +$F{t1_address_street} + " N° " + $F{t1_address_street_number}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold='true'>Domicilio:</style> Calle: " +$F{t1_address_street} + " N° " + $F{t1_address_street_number} + " Piso:" + $F{t1_address_floor} + " Departamento: "+ $F{t1_address_room}
++ " Edificio:" + $F{t1_address_building}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="6" y="133" width="277" height="12" uuid="69fcea3d-6c6b-4905-aa6b-7418df0b5bcb"/>
+				<reportElement x="380" y="131" width="126" height="12" uuid="69fcea3d-6c6b-4905-aa6b-7418df0b5bcb"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Relación Familiar:</style> " + $F{famt1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="6" y="198" width="502" height="12" uuid="7e2abb89-c917-4395-8e05-42039b1c360d"/>
+				<reportElement x="4" y="196" width="244" height="12" uuid="7e2abb89-c917-4395-8e05-42039b1c360d"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Telefono/s:</style> " + $F{t1_phone1_number} + (($F{t1_phone2_number}==null)? "": " - " + $F{t1_phone2_number})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="6" y="211" width="502" height="12" uuid="a015d0d7-7568-4be0-8ec1-d75684169ef3"/>
+				<reportElement x="249" y="196" width="257" height="12" uuid="a015d0d7-7568-4be0-8ec1-d75684169ef3"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Correo Electrónico:</style> " + $F{t1_email}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="5" y="234" width="504" height="15" uuid="2c2f9544-52e2-4f71-a5e6-74b6063d5ff1"/>
-				<textElement markup="styled">
-					<font fontName="SansSerif" size="10" isBold="true" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[DATOS DEL RESPONSABLE LEGAL]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="155" y="276" width="133" height="12" uuid="caef6e5a-cb8c-4863-b14d-9e3d61aedadf"/>
+				<reportElement x="152" y="268" width="133" height="12" uuid="caef6e5a-cb8c-4863-b14d-9e3d61aedadf"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>DNI:</style> " + $F{t2_dni_number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="288" y="276" width="220" height="12" uuid="2bb57064-70d4-48fb-8489-55c589994239"/>
+				<reportElement x="286" y="268" width="220" height="12" uuid="2bb57064-70d4-48fb-8489-55c589994239"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Género:</style> " +$F{gen_t2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="7" y="263" width="277" height="12" uuid="0a1b96bc-09ba-4550-abb8-d5d81685a3be"/>
+				<reportElement x="4" y="255" width="277" height="12" uuid="0a1b96bc-09ba-4550-abb8-d5d81685a3be"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Relación Familiar:</style> " + $F{famt2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="7" y="328" width="502" height="12" uuid="f02283c2-f7ae-425f-af8b-246a6dc01380"/>
+				<reportElement x="4" y="320" width="245" height="12" uuid="f02283c2-f7ae-425f-af8b-246a6dc01380"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Telefono/s:</style> " + $F{t2_phone1_number} + (($F{t2_phone2_number}==null)? "": " - " + $F{t2_phone2_number})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="7" y="250" width="502" height="12" uuid="83a35fd5-1432-4404-a537-71d774375810"/>
+				<reportElement x="4" y="242" width="502" height="12" uuid="83a35fd5-1432-4404-a537-71d774375810"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Apellido y Nombre</style>(según DNI): " + $F{tutor2_names}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="7" y="302" width="502" height="12" uuid="0b0b27ab-11a2-47c5-9ec5-1bcfa7c8c74c"/>
+				<reportElement x="4" y="294" width="502" height="12" uuid="0b0b27ab-11a2-47c5-9ec5-1bcfa7c8c74c"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>Domicilio:</style> Calle: " +$F{t2_address_street} + " N° " + $F{t2_address_street_number}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold='true'>Domicilio:</style> Calle: " +$F{t2_address_street} + " N° " + $F{t2_address_street_number} + " Piso:" + $F{t2_address_floor} + " Departamento: " + $F{t2_address_room}
++ " Edificio:" + $F{t2_address_building}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="7" y="341" width="502" height="12" uuid="ad910afb-3395-4e9a-934f-28fd52361117"/>
+				<reportElement x="250" y="320" width="257" height="12" uuid="ad910afb-3395-4e9a-934f-28fd52361117"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Correo Electrónico:</style> " + $F{t2_email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="7" y="276" width="147" height="12" uuid="0bb919c3-8d09-4469-8011-cf0e2ad8f662"/>
+				<reportElement x="4" y="268" width="147" height="12" uuid="0bb919c3-8d09-4469-8011-cf0e2ad8f662"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Fecha de nacimiento:</style> " + $F{t2_birth_date}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="230" width="462" height="1" uuid="89235285-f094-49fa-bb5e-e0bdc7de6069"/>
+				<reportElement x="0" y="222" width="511" height="1" uuid="89235285-f094-49fa-bb5e-e0bdc7de6069"/>
 				<graphicElement>
 					<pen lineStyle="Double"/>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="288" y="159" width="220" height="12" uuid="4711e34e-8992-4755-83e0-bd104110c653"/>
+				<reportElement x="286" y="157" width="220" height="12" uuid="4711e34e-8992-4755-83e0-bd104110c653"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>CUIL:</style> " +$F{t1_cuil_number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="153" y="159" width="133" height="12" uuid="1f3441f4-cfc9-4605-bba3-dffb4e6a34da"/>
+				<reportElement x="152" y="157" width="133" height="12" uuid="1f3441f4-cfc9-4605-bba3-dffb4e6a34da"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Nacionalidad:</style> " + $F{t1_nationality_country}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="288" y="289" width="220" height="12" uuid="47b6dfe8-8518-4157-8ce4-b47475daacc7"/>
+				<reportElement x="286" y="281" width="220" height="12" uuid="47b6dfe8-8518-4157-8ce4-b47475daacc7"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>CUIL:</style> " +$F{t2_cuil_number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="155" y="289" width="133" height="12" uuid="7e8dae01-cd3b-4529-af82-041eb1417dab"/>
+				<reportElement x="152" y="281" width="133" height="12" uuid="7e8dae01-cd3b-4529-af82-041eb1417dab"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Nacionalidad:</style> " + $F{t2_nationality_country}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="7" y="289" width="147" height="12" uuid="89460b91-d68c-4236-9ce3-fc710c13c980"/>
+				<reportElement x="4" y="281" width="147" height="12" uuid="89460b91-d68c-4236-9ce3-fc710c13c980"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -430,46 +427,74 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA[" <style isBold='true'>Ciudad:</style> " + $F{c_address_locality}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="6" y="185" width="146" height="12" uuid="e1ae24a4-2dc9-44eb-b967-df3f8d6be9f0"/>
+				<reportElement x="4" y="183" width="146" height="12" uuid="e1ae24a4-2dc9-44eb-b967-df3f8d6be9f0"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Barrio:</style> " +$F{c_address_neightbourhood}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="285" y="185" width="223" height="12" uuid="579cd00b-5737-4ba3-be64-9725bf974d32"/>
+				<reportElement x="285" y="183" width="221" height="12" uuid="579cd00b-5737-4ba3-be64-9725bf974d32"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" <style isBold='true'>Código Postal:</style> " + $F{t1_address_zip_code}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="152" y="185" width="133" height="12" uuid="1a9b2edc-3ce3-4f26-bed9-7f88a85c28b1"/>
+				<reportElement x="151" y="183" width="133" height="12" uuid="1a9b2edc-3ce3-4f26-bed9-7f88a85c28b1"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" <style isBold='true'>Ciudad:</style> " + $F{t1_address_locality}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="7" y="315" width="146" height="12" uuid="cd7c3a66-2652-4374-bc79-b4abf8207072"/>
+				<reportElement x="4" y="307" width="146" height="12" uuid="cd7c3a66-2652-4374-bc79-b4abf8207072"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Barrio:</style> " +$F{c_address_neightbourhood}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="286" y="315" width="223" height="12" uuid="a0040350-cee9-489b-ac48-4da184764c29"/>
+				<reportElement x="285" y="307" width="221" height="12" uuid="a0040350-cee9-489b-ac48-4da184764c29"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" <style isBold='true'>Código Postal:</style> " + $F{t1_address_zip_code}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="153" y="315" width="133" height="12" uuid="b801445d-ff4d-43a9-a2b4-ebe953855f87"/>
+				<reportElement x="151" y="307" width="133" height="12" uuid="b801445d-ff4d-43a9-a2b4-ebe953855f87"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" <style isBold='true'>Ciudad:</style> " + $F{t1_address_locality}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="98" width="502" height="12" uuid="8d8da8ee-47ea-4ccc-8f97-d1b6fcb885e8"/>
+				<textElement markup="styled">
+					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true'>Comentario:</style> " + $F{c_address_comment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="209" width="502" height="12" uuid="48d1d43f-d5ba-4065-9ba9-6f70d04b5638"/>
+				<textElement markup="styled">
+					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true'>Comentario:</style> " + $F{t1_address_comment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="333" width="502" height="12" uuid="13cc28d5-97ea-477e-8656-480104a11610"/>
+				<textElement markup="styled">
+					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true'>Comentario:</style> " + $F{t2_address_comment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="226" width="568" height="15" uuid="09add932-c8ef-4b21-8bea-e84a7885aa17"/>
+				<textElement markup="styled">
+					<font fontName="SansSerif" size="8" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DATOS DEL RESPONSABLE LEGAL <style fontName='SansSerif' size='7' isBold='false'>(Se consignarán datos de Tutor siempre que medie Resolución Judicial, acompañar dicha documentación) </style>"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

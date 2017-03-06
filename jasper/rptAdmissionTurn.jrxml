@@ -34,7 +34,7 @@ where aa.id = $P{id}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="185" splitType="Stretch">
+		<band height="196" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="3" width="555" height="20" uuid="64885ab5-60b5-43f8-b338-2540f407a2b6"/>
 				<textElement textAlignment="Center" markup="styled">
@@ -43,7 +43,7 @@ where aa.id = $P{id}]]>
 				<text><![CDATA[Solicitud de Asignación de Turno]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="2" y="23" width="503" height="100" uuid="fa462388-604f-46a3-bc9f-f4fb4a39a170"/>
+				<reportElement x="2" y="35" width="503" height="100" uuid="fa462388-604f-46a3-bc9f-f4fb4a39a170"/>
 				<textElement textAlignment="Justified" markup="styled">
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -55,14 +55,14 @@ where aa.id = $P{id}]]>
 "\n" + (($F{s_dni_number}==null)?$F{s_others_comment}:("Hermano en el Colegio: "+ $F{c_student}+ "\nDivisión: " + $F{s_division}))]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="240" y="145" width="192" height="38" uuid="b32d90ea-eb03-481d-824d-9728058e9f92"/>
+				<reportElement x="240" y="157" width="192" height="38" uuid="b32d90ea-eb03-481d-824d-9728058e9f92"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["...................................................... \nFirma del Padre, Madre o Tutor"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="2" y="123" width="503" height="20" uuid="8d827a6e-6064-494d-988d-778f32d79163"/>
+				<reportElement x="2" y="135" width="503" height="20" uuid="8d827a6e-6064-494d-988d-778f32d79163"/>
 				<textElement textAlignment="Justified" markup="styled">
 					<font fontName="SansSerif" size="7"/>
 				</textElement>
