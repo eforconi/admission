@@ -305,7 +305,7 @@ WHERE aa.id=$P{id}]]>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>Telefono/s:</style> " + $F{t1_phone1_number} + (($F{t1_phone2_number}==null)? "": " - " + $F{t1_phone2_number})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold='true'>Telefono/s:</style> " +  (($F{t1_phone1_number}==null)? "": $F{t1_phone1_number}) + (($F{t1_phone2_number}==null)? "": " - " + $F{t1_phone2_number})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="249" y="196" width="257" height="12" uuid="a015d0d7-7568-4be0-8ec1-d75684169ef3"/>
@@ -340,7 +340,7 @@ WHERE aa.id=$P{id}]]>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>Telefono/s:</style> " + $F{t2_phone1_number} + (($F{t2_phone2_number}==null)? "": " - " + $F{t2_phone2_number})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold='true'>Telefono/s:</style> " +  (($F{t2_phone1_number}==null)? "": $F{t2_phone1_number}) + (($F{t2_phone2_number}==null)? "": " - " + $F{t2_phone2_number})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="4" y="242" width="502" height="12" uuid="83a35fd5-1432-4404-a537-71d774375810"/>
