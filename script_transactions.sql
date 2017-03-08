@@ -1,4 +1,5 @@
 ﻿--Types
+DROP TYPE IF EXISTS yacare_admission.t_aspirant CASCADE;
 CREATE TYPE yacare_admission.t_aspirant AS 
 (	
   c_first_name character varying,
@@ -36,83 +37,51 @@ CREATE TYPE yacare_admission.t_aspirant AS
   year_calendar integer);
 
 
-CREATE TYPE yacare_admission.t_tutor1 AS 
+DROP TYPE IF EXISTS yacare_admission.t_tutor CASCADE;
+CREATE TYPE yacare_admission.t_tutor AS 
 (	
-  t1_family_relationship_type_id character varying,
-  t1_first_name character varying,
-  t1_other_names character varying,
-  t1_surnames character varying,
-  t1_person_gender_id character varying,
-  t1_dni_number character varying,
-  t1_cuil_number character varying,
-  t1_birth_date date,
-  t1_nationality_country_id character varying,
-  t1_address_country_id character varying,
-  t1_address_province_id character varying,
-  t1_address_locality character varying,
-  t1_address_zip_code character varying,
-  t1_address_neightbourhood character varying,
-  t1_address_street character varying,
-  t1_address_street_number character varying,
-  t1_address_floor character varying,
-  t1_address_room character varying,
-  t1_address_building character varying,
-  t1_address_comment character varying,
-  t1_email character varying,
-  t1_phone1_country_id character varying,
-  t1_phone1_local_calling_code character varying,
-  t1_phone1_number integer,
-  t1_phone2_country_id character varying,
-  t1_phone2_local_calling_code character varying,
-  t1_phone2_number integer,
-  t1_profession character varying
- );
-
-
-CREATE TYPE yacare_admission.t_tutor2 AS 
-(	
-  t2_family_relationship_type_id character varying,
-  t2_first_name character varying,
-  t2_other_names character varying,
-  t2_surnames character varying,
-  t2_person_gender_id character varying,
-  t2_dni_number character varying,
-  t2_cuil_number character varying,
-  t2_birth_date date,
-  t2_nationality_country_id character varying,
-  t2_address_country_id character varying,
-  t2_address_province_id character varying,
-  t2_address_locality character varying,
-  t2_address_zip_code character varying,
-  t2_address_neightbourhood character varying,
-  t2_address_street character varying,
-  t2_address_street_number character varying,
-  t2_address_floor character varying,
-  t2_address_room character varying,
-  t2_address_building character varying,
-  t2_address_comment character varying,
-  t2_email character varying,
-  t2_phone1_country_id character varying,
-  t2_phone1_local_calling_code character varying,
-  t2_phone1_number integer,
-  t2_phone2_country_id character varying,
-  t2_phone2_local_calling_code character varying,
-  t2_phone2_number integer,
-  t2_profession character varying
+  t_family_relationship_type_id character varying,
+  t_first_name character varying,
+  t_other_names character varying,
+  t_surnames character varying,
+  t_person_gender_id character varying,
+  t_dni_number character varying,
+  t_cuil_number character varying,
+  t_birth_date date,
+  t_nationality_country_id character varying,
+  t_address_country_id character varying,
+  t_address_province_id character varying,
+  t_address_locality character varying,
+  t_address_zip_code character varying,
+  t_address_neightbourhood character varying,
+  t_address_street character varying,
+  t_address_street_number character varying,
+  t_address_floor character varying,
+  t_address_room character varying,
+  t_address_building character varying,
+  t_address_comment character varying,
+  t_email character varying,
+  t_phone1_country_id character varying,
+  t_phone1_local_calling_code character varying,
+  t_phone1_number integer,
+  t_phone2_country_id character varying,
+  t_phone2_local_calling_code character varying,
+  t_phone2_number integer,
+  t_profession character varying
  );
 
 
 ---INSERT ADMISSION_FORM
 
-CREATE OR REPLACE FUNCTION yacare_admission.insert_admission(p_aspirant yacare_admssion.t_aspirant, p_tutor1 yacare_admission.t_tutor1, p_tutor2 yacare_admission.t_tutor2)
+CREATE OR REPLACE FUNCTION yacare_admission.insert_admission(p_aspirant yacare_admssion.t_aspirant, p_tutor1 yacare_admission.t_tutor, p_tutor2 yacare_admission.t_tutor)
 
   RETURNS boolean AS
 $BODY$
 DECLARE
 
 aspitant yacare_admission.t_aspirant;
-tutor1 yacare_admission.t_tutor1;
-tutor2 yacare_admission.t_tutor2;
+tutor1 yacare_admission.t_tutor;
+tutor2 yacare_admission.t_tutor;
 
 vId varchar;
 
@@ -129,7 +98,8 @@ BEGIN
 		SELECT uuid_generate_v1() into vId;
 	   
 		insert into yacare_admission.admission_form
-		(id, date_form, c_first_name, c_other_names, c_surnames, c_person_gender_id, 
+		(id, date_form, 
+		    c_first_name, c_other_names, c_surnames, c_person_gender_id, 
 		    c_dni_number, c_cuil_number, c_person_blood_factor_id, c_person_blood_group_id, 
 		    c_birth_date, c_birth_country_id, c_birth_province_id, c_birth_locality, 
 		    c_nationality_country_id, c_address_country_id, c_address_province_id, 
@@ -156,7 +126,24 @@ BEGIN
 		    t2_phone2_number, t2_profession, school_shift_id, s_first_name, 
 		    s_other_names, s_surnames, s_dni_number, shift_1, 
 		    admission_serial, year_calendar)
-		values(v_id, );
+		values(vId, (SELECT CURRENT_DATE), 
+		aspirant.c_first_name, aspirant.c_other_names, aspirant.c_surnames, aspirant.c_person_gender_id, 
+		aspirant.c_dni_number, aspirant.c_cuil_number, aspirant.c_person_blood_factor_id, aspirant.c_person_blood_group_id, 
+		aspirant.c_birth_date, aspirant.c_birth_country_id, aspirant.c_birth_province_id, aspirant.c_birth_locality, 
+		aspirant.c_nationality_country_id, aspirant.c_address_country_id, aspirant.c_address_province_id, 
+		aspirant.c_address_locality, aspirant.c_address_zip_code, aspirant.c_address_neightbourhood, 
+		aspirant.c_address_street, aspirant.c_address_street_number, aspirant.c_address_floor, aspirant.c_address_room, 
+		aspirant.c_address_building, aspirant.c_address_comment, aspirant.s_division, aspirant.s_others_comment,
+		tutor1.t1_family_relationship_type_id, 
+		    tutor1.t1_first_name, tutor1.t1_other_names, tutor1.t1_surnames, tutor1.t1_person_gender_id, 
+		    tutor1.t1_dni_number, tutor1.t1_cuil_number, tutor1.t1_birth_date, tutor1.t1_nationality_country_id, 
+		    tutor1.t1_address_country_id, tutor1.t1_address_province_id, tutor1.t1_address_locality, 
+		    tutor1.t1_address_zip_code, tutor1.t1_address_neightbourhood, tutor1.t1_address_street, 
+		    tutor1.t1_address_street_number, tutor1.t1_address_floor, tutor1.t1_address_room, 
+		    tutor1.t1_address_building, tutor1.t1_address_comment, tutor1.t1_email, tutor1.t1_phone1_country_id, 
+		    tutor1.t1_phone1_local_calling_code, tutor1.t1_phone1_number, tutor1.t1_phone2_country_id, 
+		    tutor1.t1_phone2_local_calling_code, tutor1.t1_phone2_number, tutor1.t1_profession
+		);
 
 		
 

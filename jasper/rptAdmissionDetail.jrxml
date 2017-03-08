@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionFile" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="155"/>
+	<property name="ireport.y" value="158"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -48,8 +48,8 @@ COALESCE(aa.t1_address_zip_code,'--') t1_address_zip_code,
 COALESCE(aa.t1_address_locality,'--') t1_address_locality,
 COALESCE(aa.t1_address_comment,'--') t1_address_comment,
 COALESCE(aa.t1_email,'--') t1_email,
-aa.t1_phone1_number,
-aa.t1_phone2_number,
+trim(COALESCE(aa.t1_phone1_country_id,'') || ' ' || COALESCE(aa.t1_phone1_local_calling_code,'') || ' ' || COALESCE(aa.t1_phone1_number,null)) t1_phone1_number,
+trim(COALESCE(aa.t1_phone2_country_id,'') || ' ' || COALESCE(aa.t1_phone2_local_calling_code,'') || ' ' || COALESCE(aa.t1_phone2_number,null)) t1_phone2_number,
 fam_t1.name famT1,
 fam_t1.code famT1Code,
 
@@ -72,8 +72,8 @@ COALESCE(aa.t2_address_locality,'--') t2_address_locality,
 COALESCE(aa.t2_address_comment,'--') t2_address_comment,
 
 COALESCE(aa.t2_email,'--') t2_email,
-aa.t2_phone1_number,
-aa.t2_phone2_number,
+trim(COALESCE(aa.t2_phone1_country_id,'') || ' ' || COALESCE(aa.t2_phone1_local_calling_code,'') || ' ' || COALESCE(aa.t2_phone1_number,null)) t2_phone1_number,
+trim(COALESCE(aa.t2_phone2_country_id,'') || ' ' || COALESCE(aa.t2_phone2_local_calling_code,'') || ' ' || COALESCE(aa.t2_phone2_number,null)) t2_phone2_number,
 fam_t2.name famT2,
 fam_t2.code famT2Code
 
@@ -129,8 +129,8 @@ WHERE aa.id=$P{id}]]>
 	<field name="t1_address_locality" class="java.lang.String"/>
 	<field name="t1_address_comment" class="java.lang.String"/>
 	<field name="t1_email" class="java.lang.String"/>
-	<field name="t1_phone1_number" class="java.lang.Integer"/>
-	<field name="t1_phone2_number" class="java.lang.Integer"/>
+	<field name="t1_phone1_number" class="java.lang.String"/>
+	<field name="t1_phone2_number" class="java.lang.String"/>
 	<field name="famt1" class="java.lang.String"/>
 	<field name="famt1code" class="java.lang.String"/>
 	<field name="tutor2_names" class="java.lang.String"/>
@@ -150,8 +150,8 @@ WHERE aa.id=$P{id}]]>
 	<field name="t2_address_locality" class="java.lang.String"/>
 	<field name="t2_address_comment" class="java.lang.String"/>
 	<field name="t2_email" class="java.lang.String"/>
-	<field name="t2_phone1_number" class="java.lang.Integer"/>
-	<field name="t2_phone2_number" class="java.lang.Integer"/>
+	<field name="t2_phone1_number" class="java.lang.String"/>
+	<field name="t2_phone2_number" class="java.lang.String"/>
 	<field name="famt2" class="java.lang.String"/>
 	<field name="famt2code" class="java.lang.String"/>
 	<background>
