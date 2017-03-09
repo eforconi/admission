@@ -290,13 +290,15 @@ $BODY$
 
 --UPDATE ADMISSION_FORM
 
-CREATE OR REPLACE FUNCTION yacare_admission.update_admission_closed(p_admission_form_id character varying, p_incomplete_docs boolean, p_incomplete_docs_desc character varying)
+CREATE OR REPLACE FUNCTION yacare_admission.update_admission_closed(p_admission_form_id character varying, p_incomplete_docs_desc character varying)
 
   RETURNS boolean AS
 $BODY$
 DECLARE
 
 result boolean;
+
+rAdmissionForm record;
 
 aspitant yacare_admission.t_aspirant;
 tutor1 yacare_admission.t_tutor;
@@ -317,6 +319,11 @@ BEGIN
 	--
 	RAISE NOTICE 'INIT UPDATE ADMISSION';
 
+	SELECT *
+	INTO rAdmissionForm
+	FROM YACARE_ADMISSION.admission_form
+	WHERE ID = vId;
+
 	--Calcular aula de examen
 	SELECT yacare_admission.calculate_classroom_exam()
 	INTO vExamId;
@@ -325,7 +332,7 @@ BEGIN
 	SELECT shift_1
 	into vShift
 	from yacare_admission.admission_form
-	where id = vId;
+	where id = vIdş;
 
 	if(vShift is not null)then
 		SELECT yacare_admission.calculate_classroom_course(vShift)
@@ -334,12 +341,16 @@ BEGIN
 
 	--actualizar admision
 	update yacare_admission.admission_form
-	set incomplete_docs = p_incomplete_docs,
+	set incomplete_docs = true,
 	incomplete_docs_desc = p_incomplete_docs_desc,
 	classroom_exam_id = vExamId,
 	classroom_course_id = vCourseId
 	where id = vId;
 	
+	--borrar solicitudes duplicadas no confirmadas
+	delete from yacare_admission.admission_form
+	where c_dni_number = rAdmissionForm.c_dni_number
+	and incomplete_docs = false;
 
 	RAISE NOTICE 'DONE UPDATE ADMISSION';
 

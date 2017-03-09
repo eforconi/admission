@@ -18787,17 +18787,17 @@ CREATE TABLE yacare_admission.admission_form
   c_other_names character varying,
   c_surnames character varying NOT NULL,
   c_person_gender_id character varying NOT NULL,
-  c_dni_number character varying NOT NULL,
+  c_dni_number integer NOT NULL,
   c_cuil_number character varying,  
   c_person_blood_factor_id character varying,
   c_person_blood_group_id character varying,
   c_birth_date date NOT NULL,
-  c_birth_country_id character varying(2) NOT NULL, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  c_birth_province_id character varying(3) NOT NULL, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2
+  c_birth_country_id character varying NOT NULL, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+  c_birth_province_id character varying NOT NULL, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2
   c_birth_locality character varying NOT NULL,  
   c_nationality_country_id character varying NOT NULL,  -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  c_address_country_id character varying(2) NOT NULL, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  c_address_province_id character varying(3) NOT NULL, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2 	
+  c_address_country_id character varying NOT NULL, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+  c_address_province_id character varying NOT NULL, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2 	
   c_address_locality character varying NOT NULL,
   c_address_zip_code character varying NOT NULL,
   c_address_neightbourhood character varying NOT NULL, -- vecindario
@@ -18814,12 +18814,12 @@ CREATE TABLE yacare_admission.admission_form
   t1_other_names character varying,
   t1_surnames character varying NOT NULL,
   t1_person_gender_id character varying NOT NULL,
-  t1_dni_number character varying NOT NULL,  
+  t1_dni_number integer NOT NULL,  
   t1_cuil_number character varying NOT NULL,    
   t1_birth_date date NOT NULL,  
   t1_nationality_country_id character varying NOT NULL,  -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  t1_address_country_id character varying(2) NOT NULL, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  t1_address_province_id character varying(3) NOT NULL, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2 	
+  t1_address_country_id character varying NOT NULL, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+  t1_address_province_id character varying NOT NULL, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2 	
   t1_address_locality character varying NOT NULL,
   t1_address_zip_code character varying NOT NULL,
   t1_address_neightbourhood character varying NOT NULL, -- vecindario
@@ -18844,12 +18844,12 @@ CREATE TABLE yacare_admission.admission_form
   t2_other_names character varying,
   t2_surnames character varying NOT NULL,
   t2_person_gender_id character varying NOT NULL,
-  t2_dni_number character varying NOT NULL,  
+  t2_dni_number integer NOT NULL,  
   t2_cuil_number character varying NOT NULL,    
   t2_birth_date date NOT NULL,  
   t2_nationality_country_id character varying NOT NULL,  -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  t2_address_country_id character varying(2) NOT NULL, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  t2_address_province_id character varying(3) NOT NULL, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2 	
+  t2_address_country_id character varying NOT NULL, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+  t2_address_province_id character varying NOT NULL, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2 	
   t2_address_locality character varying NOT NULL,
   t2_address_zip_code character varying NOT NULL,
   t2_address_neightbourhood character varying NOT NULL, -- vecindario
@@ -18958,15 +18958,132 @@ CREATE TABLE yacare_admission.admission_form
   
 );
 
-/*insert into yacare_admission.admission_form()
+
+/*
+insert into yacare_admission.admission_form(id, date_form, c_first_name, c_other_names, c_surnames, c_person_gender_id, 
+            c_dni_number, c_cuil_number, c_person_blood_factor_id, c_person_blood_group_id, 
+            c_birth_date, c_birth_country_id, c_birth_province_id, c_birth_locality, 
+            c_nationality_country_id, c_address_country_id, c_address_province_id, 
+            c_address_locality, c_address_zip_code, c_address_neightbourhood, 
+            c_address_street, c_address_street_number, c_address_floor, c_address_room, 
+            c_address_building, c_address_comment, t1_family_relationship_type_id, 
+            t1_first_name, t1_other_names, t1_surnames, t1_person_gender_id, 
+            t1_dni_number, t1_cuil_number, t1_birth_date, t1_nationality_country_id, 
+            t1_address_country_id, t1_address_province_id, t1_address_locality, 
+            t1_address_zip_code, t1_address_neightbourhood, t1_address_street, 
+            t1_address_street_number, t1_address_floor, t1_address_room, 
+            t1_address_building, t1_address_comment, t1_email, t1_phone1_country_id, 
+            t1_phone1_local_calling_code, t1_phone1_number, t1_phone2_country_id, 
+            t1_phone2_local_calling_code, t1_phone2_number, t1_profession, 
+            t2_family_relationship_type_id, t2_first_name, t2_other_names, 
+            t2_surnames, t2_person_gender_id, t2_dni_number, t2_cuil_number, 
+            t2_birth_date, t2_nationality_country_id, t2_address_country_id, 
+            t2_address_province_id, t2_address_locality, t2_address_zip_code, 
+            t2_address_neightbourhood, t2_address_street, t2_address_street_number, 
+            t2_address_floor, t2_address_room, t2_address_building, t2_address_comment, 
+            t2_email, t2_phone1_country_id, t2_phone1_local_calling_code, 
+            t2_phone1_number, t2_phone2_country_id, t2_phone2_local_calling_code, 
+            t2_phone2_number, t2_profession, school_shift_id, s_first_name, 
+            s_other_names, s_surnames, s_dni_number, shift_1,
+            classroom_exam_id, classroom_course_id, 
+            s_division, s_others_comment, year_calendar)
 values(
-'1','2017-03-02 00:00:00','AXEL','ALVARO','JAIMES GIMENEZ',
-'e3521105-9eba-45f4-b51f-63108158cfbc',
-'47172784',
-'20471727847',
-'68030edb-50f1-464f-a0d0-f2e9a5886be8',
-'68bbad8c-6088-4294-9c1e-262eb82432f0',
-'2006-06-10',
-'8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','5000','ALBERDI','TABLADA','3030','-','-','-','','5a723d74-8fac-4044-b6bb-db25ff04dd04','DIEGO','ORLANDO','JAIMES','e3521105-9eba-45f4-b51f-63108158cfbc','27570431','20275704319','1979-01-06','8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','5000','ALBERDI','TABLADA','3030','','','','','jaimes@gmail.com','','',156711205,'','',157522717,'COMECIANTE','04dda3f7-0bcb-4ee3-868a-3b88047a1058','ELVA','AZUCENA','GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbf','18250123','27182501234','1966-12-20','8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','5000','ALBERDI','TABLADA','3030','','','','','gimenez@gmail.com','','',152537534,'','',,'COMERCIANTE','d05417a4-4ff6-4e1a-a4c2-916d092acf5a','','','','',,,'','');
+'1','2017-03-02 00:00:00','AXEL','ALVARO','JAIMES GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbc',47172784,
+'20471727847','68030edb-50f1-464f-a0d0-f2e9a5886be8','68bbad8c-6088-4294-9c1e-262eb82432f0','2006-06-10',
+'8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA',
+'8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137',
+'CORDOBA','5000','ALBERDI','TABLADA','3030','-','-','-',null,'5a723d74-8fac-4044-b6bb-db25ff04dd04','DIEGO','ORLANDO',
+'JAIMES','e3521105-9eba-45f4-b51f-63108158cfbc',27570431,'20275704319','1979-01-06',
+'8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137',
+'CORDOBA','5000','ALBERDI','TABLADA','3030',null,null,null,null,'jaimes@gmail.com',null,null,156711205,null,null,157522717,'COMECIANTE',
+'04dda3f7-0bcb-4ee3-868a-3b88047a1058','ELVA','AZUCENA','GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbf',18250123,
+'27182501234','1966-12-20','8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7',
+'50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','5000','ALBERDI','TABLADA','3030',null,null,null,null,'gimenez@gmail.com',
+null,null,152537534,null,null,null,'COMERCIANTE','d05417a4-4ff6-4e1a-a4c2-916d092acf5a',null,null,null,null,TRUE,null,
+null,null,'ORGANIZACION FAMILIAR',2017);
+
+insert into yacare_admission.admission_form(id, date_form, c_first_name, c_other_names, c_surnames, c_person_gender_id, 
+            c_dni_number, c_cuil_number, c_person_blood_factor_id, c_person_blood_group_id, 
+            c_birth_date, c_birth_country_id, c_birth_province_id, c_birth_locality, 
+            c_nationality_country_id, c_address_country_id, c_address_province_id, 
+            c_address_locality, c_address_zip_code, c_address_neightbourhood, 
+            c_address_street, c_address_street_number, c_address_floor, c_address_room, 
+            c_address_building, c_address_comment, t1_family_relationship_type_id, 
+            t1_first_name, t1_other_names, t1_surnames, t1_person_gender_id, 
+            t1_dni_number, t1_cuil_number, t1_birth_date, t1_nationality_country_id, 
+            t1_address_country_id, t1_address_province_id, t1_address_locality, 
+            t1_address_zip_code, t1_address_neightbourhood, t1_address_street, 
+            t1_address_street_number, t1_address_floor, t1_address_room, 
+            t1_address_building, t1_address_comment, t1_email, t1_phone1_country_id, 
+            t1_phone1_local_calling_code, t1_phone1_number, t1_phone2_country_id, 
+            t1_phone2_local_calling_code, t1_phone2_number, t1_profession, 
+            t2_family_relationship_type_id, t2_first_name, t2_other_names, 
+            t2_surnames, t2_person_gender_id, t2_dni_number, t2_cuil_number, 
+            t2_birth_date, t2_nationality_country_id, t2_address_country_id, 
+            t2_address_province_id, t2_address_locality, t2_address_zip_code, 
+            t2_address_neightbourhood, t2_address_street, t2_address_street_number, 
+            t2_address_floor, t2_address_room, t2_address_building, t2_address_comment, 
+            t2_email, t2_phone1_country_id, t2_phone1_local_calling_code, 
+            t2_phone1_number, t2_phone2_country_id, t2_phone2_local_calling_code, 
+            t2_phone2_number, t2_profession, school_shift_id, s_first_name, 
+            s_other_names, s_surnames, s_dni_number, shift_1,
+            classroom_exam_id, classroom_course_id, 
+            s_division, s_others_comment, year_calendar)
+values(
+'2','2017-03-02 00:00:00','AXEL','ALVARO','JAIMES GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbc',47172784,
+'20471727847','68030edb-50f1-464f-a0d0-f2e9a5886be8','68bbad8c-6088-4294-9c1e-262eb82432f0','2006-06-10',
+'8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA',
+'8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137',
+'CORDOBA','5000','ALBERDI','TABLADA','3030','-','-','-',null,'5a723d74-8fac-4044-b6bb-db25ff04dd04','DIEGO','ORLANDO',
+'JAIMES','e3521105-9eba-45f4-b51f-63108158cfbc',27570431,'20275704319','1979-01-06',
+'8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137',
+'CORDOBA','5000','ALBERDI','TABLADA','3030',null,null,null,null,'jaimes@gmail.com',null,null,156711205,null,null,157522717,'COMECIANTE',
+'04dda3f7-0bcb-4ee3-868a-3b88047a1058','ELVA','AZUCENA','GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbf',18250123,
+'27182501234','1966-12-20','8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7',
+'50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','5000','ALBERDI','TABLADA','3030',null,null,null,null,'gimenez@gmail.com',
+null,null,152537534,null,null,null,'COMERCIANTE','d05417a4-4ff6-4e1a-a4c2-916d092acf5a',null,null,null,null,TRUE,null,
+null,null,'ORGANIZACION FAMILIAR',2017);
+
+insert into yacare_admission.admission_form(id, date_form, c_first_name, c_other_names, c_surnames, c_person_gender_id, 
+            c_dni_number, c_cuil_number, c_person_blood_factor_id, c_person_blood_group_id, 
+            c_birth_date, c_birth_country_id, c_birth_province_id, c_birth_locality, 
+            c_nationality_country_id, c_address_country_id, c_address_province_id, 
+            c_address_locality, c_address_zip_code, c_address_neightbourhood, 
+            c_address_street, c_address_street_number, c_address_floor, c_address_room, 
+            c_address_building, c_address_comment, t1_family_relationship_type_id, 
+            t1_first_name, t1_other_names, t1_surnames, t1_person_gender_id, 
+            t1_dni_number, t1_cuil_number, t1_birth_date, t1_nationality_country_id, 
+            t1_address_country_id, t1_address_province_id, t1_address_locality, 
+            t1_address_zip_code, t1_address_neightbourhood, t1_address_street, 
+            t1_address_street_number, t1_address_floor, t1_address_room, 
+            t1_address_building, t1_address_comment, t1_email, t1_phone1_country_id, 
+            t1_phone1_local_calling_code, t1_phone1_number, t1_phone2_country_id, 
+            t1_phone2_local_calling_code, t1_phone2_number, t1_profession, 
+            t2_family_relationship_type_id, t2_first_name, t2_other_names, 
+            t2_surnames, t2_person_gender_id, t2_dni_number, t2_cuil_number, 
+            t2_birth_date, t2_nationality_country_id, t2_address_country_id, 
+            t2_address_province_id, t2_address_locality, t2_address_zip_code, 
+            t2_address_neightbourhood, t2_address_street, t2_address_street_number, 
+            t2_address_floor, t2_address_room, t2_address_building, t2_address_comment, 
+            t2_email, t2_phone1_country_id, t2_phone1_local_calling_code, 
+            t2_phone1_number, t2_phone2_country_id, t2_phone2_local_calling_code, 
+            t2_phone2_number, t2_profession, school_shift_id, s_first_name, 
+            s_other_names, s_surnames, s_dni_number, shift_1,
+            classroom_exam_id, classroom_course_id, 
+            s_division, s_others_comment, year_calendar)
+values(
+'3','2017-03-02 00:00:00','AXEL','ALVARO','JAIMES GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbc',47172784,
+'20471727847','68030edb-50f1-464f-a0d0-f2e9a5886be8','68bbad8c-6088-4294-9c1e-262eb82432f0','2006-06-10',
+'8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA',
+'8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137',
+'CORDOBA','5000','ALBERDI','TABLADA','3030','-','-','-',null,'5a723d74-8fac-4044-b6bb-db25ff04dd04','DIEGO','ORLANDO',
+'JAIMES','e3521105-9eba-45f4-b51f-63108158cfbc',27570431,'20275704319','1979-01-06',
+'8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7','50c323f7-8d22-49a4-9096-0b8e3f259137',
+'CORDOBA','5000','ALBERDI','TABLADA','3030',null,null,null,null,'jaimes@gmail.com',null,null,156711205,null,null,157522717,'COMECIANTE',
+'04dda3f7-0bcb-4ee3-868a-3b88047a1058','ELVA','AZUCENA','GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbf',18250123,
+'27182501234','1966-12-20','8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7',
+'50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','5000','ALBERDI','TABLADA','3030',null,null,null,null,'gimenez@gmail.com',
+null,null,152537534,null,null,null,'COMERCIANTE','d05417a4-4ff6-4e1a-a4c2-916d092acf5a',null,null,null,null,TRUE,null,
+null,null,'ORGANIZACION FAMILIAR',2017);
 */
 
