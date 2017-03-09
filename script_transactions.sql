@@ -73,11 +73,13 @@ CREATE TYPE yacare_admission.t_tutor AS
 
 ---INSERT ADMISSION_FORM
 
-CREATE OR REPLACE FUNCTION yacare_admission.insert_admission(p_aspirant yacare_admssion.t_aspirant, p_tutor1 yacare_admission.t_tutor, p_tutor2 yacare_admission.t_tutor)
+CREATE OR REPLACE FUNCTION yacare_admission.insert_admission(p_aspirant yacare_admission.t_aspirant, p_tutor1 yacare_admission.t_tutor, p_tutor2 yacare_admission.t_tutor)
 
   RETURNS boolean AS
 $BODY$
 DECLARE
+
+result boolean;
 
 aspitant yacare_admission.t_aspirant;
 tutor1 yacare_admission.t_tutor;
@@ -86,9 +88,14 @@ tutor2 yacare_admission.t_tutor;
 vId varchar;
 
 BEGIN
-	aspirant:=t_aspirant;
+	result:=false;
+
+	aspitant:=t_aspirant;
 	tutor1:=t_tutor1;
 	tutor2:=t_tutor2;
+
+	--
+	RAISE NOTICE 'INIT INSERT ADMISSION';
 
 	
 	if(aspirant<>null and aspirant.c_dni_number<>null) then
@@ -142,13 +149,204 @@ BEGIN
 		    tutor1.t1_address_street_number, tutor1.t1_address_floor, tutor1.t1_address_room, 
 		    tutor1.t1_address_building, tutor1.t1_address_comment, tutor1.t1_email, tutor1.t1_phone1_country_id, 
 		    tutor1.t1_phone1_local_calling_code, tutor1.t1_phone1_number, tutor1.t1_phone2_country_id, 
-		    tutor1.t1_phone2_local_calling_code, tutor1.t1_phone2_number, tutor1.t1_profession
+		    tutor1.t1_phone2_local_calling_code, tutor1.t1_phone2_number, tutor1.t1_profession,
+		tutor2.t1_family_relationship_type_id, 
+		    tutor2.t2_first_name, tutor2.t2_other_names, tutor2.t2_surnames, tutor2.t2_person_gender_id, 
+		    tutor2.t2_dni_number, tutor2.t2_cuil_number, tutor2.t2_birth_date, tutor2.t2_nationality_country_id, 
+		    tutor2.t2_address_country_id, tutor2.t2_address_province_id, tutor2.t2_address_locality, 
+		    tutor2.t2_address_zip_code, tutor2.t2_address_neightbourhood, tutor2.t2_address_street, 
+		    tutor2.t2_address_street_number, tutor2.t2_address_floor, tutor2.t2_address_room, 
+		    tutor2.t2_address_building, tutor2.t2_address_comment, tutor2.t2_email, tutor2.t2_phone1_country_id, 
+		    tutor2.t2_phone1_local_calling_code, tutor2.t2_phone1_number, tutor2.t2_phone2_country_id, 
+		    tutor2.t2_phone2_local_calling_code, tutor2.t2_phone2_number, tutor2.t2_profession
 		);
 
 		
 
 	end if;
 
+	RAISE NOTICE 'DONE INSERT ADMISSION';
+
+
+	result:=true;
+
+	RETURN result;
+
+
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+
+
+
+
+
+--CALCULATE CLASSROOM EXAM ADMISSION_FORM
+
+CREATE OR REPLACE FUNCTION yacare_admission.calculate_classroom_exam()
+
+  RETURNS character varying AS
+$BODY$
+DECLARE
+
+vId varchar;
+vExamId varchar;
+
+cant_exam int;
+
+BEGIN
+
+
+	cant_exam:=0;
+	--
+	RAISE NOTICE 'INIT CALCULATE ADMISSION';
+
+
+	--CANTIDAD DE ORDENES VALIDADAS
+	select count(*) 
+	into cant_exam
+	from yacare_admission.admission_form
+	where incomplete_docs = true;
+
+	--CALCULATE EXAM_ID
+	select id
+	into vExamId
+	from yacare_admission.classroom_exam
+	where erased = false
+	and is_course = false
+	and order_classroom >= cant_exam
+	order by order_classroom
+	limit 1;
+	
+
+	RAISE NOTICE 'DONE CALCULATE ADMISSION';
+
+
+	RETURN vExamId;
+
+
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+
+
+--CALCULATE CLASSROOM COURSE ADMISSION_FORM
+
+CREATE OR REPLACE FUNCTION yacare_admission.calculate_classroom_course(p_shift boolean)
+
+  RETURNS character varying AS
+$BODY$
+DECLARE
+
+vId varchar;
+vCourseId varchar;
+
+cant_exam int;
+
+BEGIN
+
+
+	cant_exam:=0;
+	--
+	RAISE NOTICE 'INIT CALCULATE ADMISSION';
+
+
+	--CANTIDAD DE ORDENES VALIDADAS
+	select count(*) 
+	into cant_exam
+	from yacare_admission.admission_form
+	where incomplete_docs = true
+	and shift_1 = p_shift;
+
+	--CALCULATE EXAM_ID
+	select *
+	into vCourseId
+	from yacare_admission.classroom_exam
+	where erased = false
+	and is_course = true
+	and order_classroom >= cant_exam
+	order by order_classroom
+	limit 1;
+	
+
+	RAISE NOTICE 'DONE CALCULATE ADMISSION';
+
+
+	RETURN vCourseId;
+
+
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+
+--UPDATE ADMISSION_FORM
+
+CREATE OR REPLACE FUNCTION yacare_admission.update_admission_closed(p_admission_form_id character varying, p_incomplete_docs boolean, p_incomplete_docs_desc character varying)
+
+  RETURNS boolean AS
+$BODY$
+DECLARE
+
+result boolean;
+
+aspitant yacare_admission.t_aspirant;
+tutor1 yacare_admission.t_tutor;
+tutor2 yacare_admission.t_tutor;
+
+vId varchar;
+vCourseId varchar;
+vExamId varchar;
+vShift boolean;
+
+BEGIN
+	result:=false;
+	vExamId:=null;
+	vCourseId:=null;
+	
+	vId := p_admission_form_id;
+
+	--
+	RAISE NOTICE 'INIT UPDATE ADMISSION';
+
+	--Calcular aula de examen
+	SELECT yacare_admission.calculate_classroom_exam()
+	INTO vExamId;
+
+	--Calcular aula de cursado
+	SELECT shift_1
+	into vShift
+	from yacare_admission.admission_form
+	where id = vId;
+
+	if(vShift is not null)then
+		SELECT yacare_admission.calculate_classroom_course(vShift)
+		into vCourseId;
+	end if;
+
+	--actualizar admision
+	update yacare_admission.admission_form
+	set incomplete_docs = p_incomplete_docs,
+	incomplete_docs_desc = p_incomplete_docs_desc,
+	classroom_exam_id = vExamId,
+	classroom_course_id = vCourseId
+	where id = vId;
+	
+
+	RAISE NOTICE 'DONE UPDATE ADMISSION';
+
+
+	result:=true;
+
+	RETURN result;
 
 
 
