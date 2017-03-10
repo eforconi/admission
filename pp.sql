@@ -52,16 +52,16 @@ INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_
 INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('30', 'AULA C', 99,1288,false);
 INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('31', 'AULA D', 99,1387,false);
 --
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('918', '18', 32,0,true);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('919', '19', 32,0,true);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('920', '20', 32,0,true);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('921', '21', 32,0,true);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('922', '22', 32,0,true);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('923', '23', 32,0,true);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('924', '24', 32,0,true);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('925', '25', 32,0,true);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('926', '26', 32,0,true);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('927', '27', 32,0,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('918', '18', 32,32,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('919', '19', 32,64,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('920', '20', 32,96,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('921', '21', 32,128,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('922', '22', 32,160,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('923', '23', 32,192,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('924', '24', 32,224,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('925', '25', 32,256,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('926', '26', 32,288,true);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('927', '27', 32,320,true);
 
 
 -- SELECT * FROM yacare_admission.classroom_exam;
@@ -18889,7 +18889,10 @@ CREATE TABLE yacare_admission.admission_form
 
   -- aula deexamen asignado
   classroom_exam_id character varying,
-
+  
+  --closed
+  admission_closed boolean,
+  
   --nro de inscripcion de admision
   admission_serial bigserial NOT NULL, 
   
@@ -18986,7 +18989,7 @@ insert into yacare_admission.admission_form(id, date_form, c_first_name, c_other
             t2_phone2_number, t2_profession, school_shift_id, s_first_name, 
             s_other_names, s_surnames, s_dni_number, shift_1,
             classroom_exam_id, classroom_course_id, 
-            s_division, s_others_comment, year_calendar)
+            s_division, s_others_comment, year_calendar,admission_closed)
 values(
 '1','2017-03-02 00:00:00','AXEL','ALVARO','JAIMES GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbc',47172784,
 '20471727847','68030edb-50f1-464f-a0d0-f2e9a5886be8','68bbad8c-6088-4294-9c1e-262eb82432f0','2006-06-10',
@@ -19000,7 +19003,7 @@ values(
 '27182501234','1966-12-20','8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7',
 '50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','5000','ALBERDI','TABLADA','3030',null,null,null,null,'gimenez@gmail.com',
 null,null,152537534,null,null,null,'COMERCIANTE','d05417a4-4ff6-4e1a-a4c2-916d092acf5a',null,null,null,null,TRUE,null,
-null,null,'ORGANIZACION FAMILIAR',2017);
+null,null,'ORGANIZACION FAMILIAR',2017,false);
 
 insert into yacare_admission.admission_form(id, date_form, c_first_name, c_other_names, c_surnames, c_person_gender_id, 
             c_dni_number, c_cuil_number, c_person_blood_factor_id, c_person_blood_group_id, 
@@ -19028,7 +19031,7 @@ insert into yacare_admission.admission_form(id, date_form, c_first_name, c_other
             t2_phone2_number, t2_profession, school_shift_id, s_first_name, 
             s_other_names, s_surnames, s_dni_number, shift_1,
             classroom_exam_id, classroom_course_id, 
-            s_division, s_others_comment, year_calendar)
+            s_division, s_others_comment, year_calendar,admission_closed)
 values(
 '2','2017-03-02 00:00:00','AXEL','ALVARO','JAIMES GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbc',47172784,
 '20471727847','68030edb-50f1-464f-a0d0-f2e9a5886be8','68bbad8c-6088-4294-9c1e-262eb82432f0','2006-06-10',
@@ -19042,7 +19045,7 @@ values(
 '27182501234','1966-12-20','8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7',
 '50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','5000','ALBERDI','TABLADA','3030',null,null,null,null,'gimenez@gmail.com',
 null,null,152537534,null,null,null,'COMERCIANTE','d05417a4-4ff6-4e1a-a4c2-916d092acf5a',null,null,null,null,TRUE,null,
-null,null,'ORGANIZACION FAMILIAR',2017);
+null,null,'ORGANIZACION FAMILIAR',2017,false);
 
 insert into yacare_admission.admission_form(id, date_form, c_first_name, c_other_names, c_surnames, c_person_gender_id, 
             c_dni_number, c_cuil_number, c_person_blood_factor_id, c_person_blood_group_id, 
@@ -19070,7 +19073,7 @@ insert into yacare_admission.admission_form(id, date_form, c_first_name, c_other
             t2_phone2_number, t2_profession, school_shift_id, s_first_name, 
             s_other_names, s_surnames, s_dni_number, shift_1,
             classroom_exam_id, classroom_course_id, 
-            s_division, s_others_comment, year_calendar)
+            s_division, s_others_comment, year_calendar,admission_closed)
 values(
 '3','2017-03-02 00:00:00','AXEL','ALVARO','JAIMES GIMENEZ','e3521105-9eba-45f4-b51f-63108158cfbc',47172784,
 '20471727847','68030edb-50f1-464f-a0d0-f2e9a5886be8','68bbad8c-6088-4294-9c1e-262eb82432f0','2006-06-10',
@@ -19084,6 +19087,6 @@ values(
 '27182501234','1966-12-20','8bb52cba-161f-4106-b10b-a74c420bcac7','8bb52cba-161f-4106-b10b-a74c420bcac7',
 '50c323f7-8d22-49a4-9096-0b8e3f259137','CORDOBA','5000','ALBERDI','TABLADA','3030',null,null,null,null,'gimenez@gmail.com',
 null,null,152537534,null,null,null,'COMERCIANTE','d05417a4-4ff6-4e1a-a4c2-916d092acf5a',null,null,null,null,TRUE,null,
-null,null,'ORGANIZACION FAMILIAR',2017);
+null,null,'ORGANIZACION FAMILIAR',2017,false);
 */
 
