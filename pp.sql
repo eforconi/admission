@@ -18891,7 +18891,7 @@ CREATE TABLE yacare_admission.admission_form
   classroom_exam_id character varying,
   
   --closed
-  admission_closed boolean,
+  admission_closed boolean default false,
   
   --nro de inscripcion de admision
   admission_serial bigserial NOT NULL, 

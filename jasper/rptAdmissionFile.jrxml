@@ -16,7 +16,8 @@ trim(COALESCE(aa.c_surnames,'')|| ', ' || COALESCE(aa.c_first_name,'') || ' ' ||
       WHEN (g_c.code is not null AND g_c.code ='F') THEN FALSE
  ELSE TRUE
 END) gen_code_c,
-trim(to_char(aa.admission_serial,'0000')) admission_serial
+trim(to_char(aa.admission_serial,'0000')) admission_serial,
+aa.year_calendar
 from yacare_admission.admission_form aa
 left join yacare_admission.person_gender g_c on aa.c_person_gender_id= g_c.id and g_c.erased=false
 WHERE aa.id=$P{id}]]>
@@ -27,25 +28,27 @@ WHERE aa.id=$P{id}]]>
 	<field name="c_names" class="java.lang.String"/>
 	<field name="gen_code_c" class="java.lang.Boolean"/>
 	<field name="admission_serial" class="java.lang.String"/>
+	<field name="year_calendar" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
 		<band height="82">
 			<staticText>
-				<reportElement x="97" y="13" width="402" height="24" uuid="4852c6c4-121a-4589-be5d-8108af157601"/>
+				<reportElement x="97" y="4" width="402" height="24" uuid="4852c6c4-121a-4589-be5d-8108af157601"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="18" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Colegio Nacional de Monserrat]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="97" y="37" width="402" height="41" uuid="c3e6cefb-93df-4b82-aeeb-b6eed6bc6062"/>
+				<reportElement x="97" y="28" width="402" height="50" uuid="c3e6cefb-93df-4b82-aeeb-b6eed6bc6062"/>
 				<textElement textAlignment="Center">
-					<font fontName="SansSerif" size="16" isBold="true" isPdfEmbedded="true"/>
+					<font fontName="SansSerif" size="14" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Solicitud de Ingreso" +
-"\nNivel Secundario"]]></textFieldExpression>
+"\nNivel Secundario" +
+"\nCiclo " + (($F{year_calendar} == null)?"":$F{year_calendar})]]></textFieldExpression>
 			</textField>
 			<image onErrorType="Blank">
 				<reportElement x="5" y="1" width="92" height="75" uuid="b70c259c-2131-4374-8b0e-974dd8a2d8ad"/>
