@@ -256,7 +256,7 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 
-
+--select yacare_admission.calculate_classroom_exam();
 
 --CALCULATE CLASSROOM COURSE ADMISSION_FORM
 
@@ -309,6 +309,7 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 
+--select yacare_admission.calculate_classroom_course(true);
 
 --UPDATE CLOSED ADMISSION_FORM
 
@@ -385,6 +386,7 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 
+--select yacare_admission.update_admission_closed('3', true, 'NO TRAJO BOLETIN');
 
 --UPDATE ADMISSION_FORM
 
