@@ -177,7 +177,7 @@ BEGIN
 			aspirant.school_shift_id, aspirant.s_first_name, aspirant.s_other_names, aspirant.s_surnames,
 			aspirant.s_dni_number, aspirant.s_division, aspirant.s_others_comment, aspirant.shift_1,
 			aspirant.incomplete_docs,aspirant.incomplete_docs_desc,
-			aspirant.year_calendar 
+			(select yacare_admission.getYearCalendarActive()) 
 			);
 
 			result:=vId;
@@ -443,18 +443,18 @@ BEGIN
 	    s_other_names=aspirant.s_other_names, s_surnames=aspirant.s_surnames, s_dni_number=aspirant.s_dni_number,
 	    shift_1 = aspirant.shift_1,
 	--------------------------------------------------------------------------------------------	
-	    t1_family_relationship_type_id=tutor1.t1_family_relationship_type_id, 
-	    t1_first_name=tutor1.t1_first_name, t1_other_names=tutor1.t1_other_names, t1_surnames= tutor1.t1_surnames, 
-	    t1_person_gender_id= tutor1.t1_person_gender_id, 
-	    t1_dni_number=tutor1.t1_dni_number, t1_cuil_number=tutor1.t1_cuil_number, t1_birth_date=tutor1.t1_birth_date, 
-	    t1_nationality_country_id=tutor1.t1_nationality_country_id, 
-	    t1_address_country_id=tutor1.t1_address_country_id, t1_address_province_id =  tutor1.t1_address_province_id, 
-	    t1_address_locality= tutor1.t1_address_locality, 
-	    t1_address_zip_code=tutor1.t1_address_zip_code, t1_address_neightbourhood= tutor1.t1_address_neightbourhood, 
-	    t1_address_street=tutor1.t1_address_street, 
-	    t1_address_street_number=tutor1.t1_address_street_number, t1_address_floor=tutor1.t1_address_floor, 
-	    t1_address_room=tutor1.t1_address_room, 
-	    t1_address_building=tutor1.t1_address_building, t1_address_comment=tutor1.t1_address_comment, 
+	    t1_family_relationship_type_id=tutor1.t_family_relationship_type_id, 
+	    t1_first_name=tutor1.t_first_name, t1_other_names=tutor1.t_other_names, t1_surnames= tutor1.t_surnames, 
+	    t1_person_gender_id= tutor1.t_person_gender_id, 
+	    t1_dni_number=tutor1.t_dni_number, t1_cuil_number=tutor1.t_cuil_number, t1_birth_date=tutor1.t_birth_date, 
+	    t1_nationality_country_id=tutor1.t_nationality_country_id, 
+	    t1_address_country_id=tutor1.t_address_country_id, t1_address_province_id =  tutor1.t_address_province_id, 
+	    t1_address_locality= tutor1.t_address_locality, 
+	    t1_address_zip_code=tutor1.t_address_zip_code, t1_address_neightbourhood= tutor1.t_address_neightbourhood, 
+	    t1_address_street=tutor1.t_address_street, 
+	    t1_address_street_number=tutor1.t_address_street_number, t1_address_floor=tutor1.t_address_floor, 
+	    t1_address_room=tutor1.t_address_room, 
+	    t1_address_building=tutor1.t_address_building, t1_address_comment=tutor1.t1_address_comment, 
 	    t1_email=tutor1.t1_email, t1_phone1_country_id=tutor1.t1_phone1_country_id, 
 	    t1_phone1_local_calling_code=tutor1.t1_phone1_local_calling_code, t1_phone1_number=tutor1.t1_phone1_number, 
 	    t1_phone2_country_id=tutor1.t1_phone2_country_id, 
@@ -499,6 +499,37 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 
+--ANIO CALENDARIO ACTIVO
+CREATE OR REPLACE FUNCTION yacare_admission.getYearCalendarActive()
+
+  RETURNS integer AS
+$BODY$
+DECLARE
+
+result integer;
+
+
+
+BEGIN
+
+	RAISE NOTICE 'INIT CALCULATE YEAR ACTIVE';
+	
+	select yacare.getyearcalendaractive()
+	into result;
+
+	result:= result + 1;
+	
+	RAISE NOTICE 'DONE CALCULATE YEAR ACTIVE';
+
+	RETURN result;
+	
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+--SELECT yacare_admission.getYearCalendarActive()
 --CONSULTAR ADMISSION FORM
 
 

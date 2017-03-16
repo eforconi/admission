@@ -18839,21 +18839,21 @@ CREATE TABLE yacare_admission.admission_form
   t1_profession  character varying,
 
   -- t2 --> Tutor 2 ATT
-  t2_family_relationship_type_id character varying  NOT NULL,
-  t2_first_name character varying NOT NULL, 
+  t2_family_relationship_type_id character varying,
+  t2_first_name character varying, 
   t2_other_names character varying,
-  t2_surnames character varying NOT NULL,
-  t2_person_gender_id character varying NOT NULL,
-  t2_dni_number integer NOT NULL,  
-  t2_cuil_number character varying NOT NULL,    
-  t2_birth_date date NOT NULL,  
-  t2_nationality_country_id character varying NOT NULL,  -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  t2_address_country_id character varying NOT NULL, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-  t2_address_province_id character varying NOT NULL, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2 	
-  t2_address_locality character varying NOT NULL,
-  t2_address_zip_code character varying NOT NULL,
-  t2_address_neightbourhood character varying NOT NULL, -- vecindario
-  t2_address_street character varying NOT NULL,
+  t2_surnames character varying,
+  t2_person_gender_id character varying,
+  t2_dni_number integer,  
+  t2_cuil_number character varying,    
+  t2_birth_date date,  
+  t2_nationality_country_id character varying,  -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+  t2_address_country_id character varying, -- código pais - ej. AR -- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+  t2_address_province_id character varying, -- código provincia - ej. AR-X -- https://en.wikipedia.org/wiki/ISO_3166-2 	
+  t2_address_locality character varying,
+  t2_address_zip_code character varying,
+  t2_address_neightbourhood character varying, -- vecindario
+  t2_address_street character varying,
   t2_address_street_number character varying,
   t2_address_floor character varying,
   t2_address_room character varying,
