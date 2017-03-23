@@ -514,8 +514,10 @@ BEGIN
 
 	RAISE NOTICE 'INIT CALCULATE YEAR ACTIVE';
 	
-	select yacare.getyearcalendaractive()
-	into result;
+	select max(year) 
+	into result
+	from yacare_admission.year_calendar;
+	
 
 	result:= result + 1;
 	
