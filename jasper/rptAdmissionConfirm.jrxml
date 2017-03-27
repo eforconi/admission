@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionConfirm" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="20" bottomMargin="20" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="564"/>
+	<property name="ireport.x" value="4"/>
+	<property name="ireport.y" value="660"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -86,7 +86,7 @@ WHERE aa.id=$P{id}]]>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="326" splitType="Stretch">
+		<band height="311" splitType="Stretch">
 			<line>
 				<reportElement x="0" y="55" width="511" height="1" uuid="0dee6bb9-e79f-49f2-bee5-a9d093c91667"/>
 				<graphicElement>
@@ -124,11 +124,11 @@ WHERE aa.id=$P{id}]]>
 			</textField>
 			<textField>
 				<reportElement x="19" y="105" width="154" height="20" uuid="d5844772-8ba7-4542-b817-deb3715ae48d"/>
-				<textFieldExpression><![CDATA["Nro. de Aula: " + $F{classroom_exam}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Nro. de Aula: " + (($F{classroom_exam}==null)?"-":$F{classroom_exam})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="233" y="105" width="154" height="20" uuid="99995a35-fb87-4e90-8822-c01824f1c317"/>
-				<textFieldExpression><![CDATA["Nro. de Orden: " + $F{admission_serial}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Nro. de Orden: " + (($F{admission_serial}==null)?"-":$F{admission_serial})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement mode="Opaque" x="1" y="131" width="504" height="15" backcolor="#C0C0C0" uuid="2c489f0d-2df9-4568-bf80-0fbaeac3d95f"/>
@@ -143,32 +143,33 @@ WHERE aa.id=$P{id}]]>
 			</textField>
 			<textField>
 				<reportElement x="19" y="173" width="480" height="43" uuid="ab7404ff-fd3d-41a9-9984-8a492965a5c1"/>
-				<textFieldExpression><![CDATA["Observación: " + $F{incomplete_docs_desc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Observación: " + (($F{incomplete_docs_desc}==null)?"":$F{incomplete_docs_desc})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="1" y="234" width="504" height="15" backcolor="#C0C0C0" uuid="890b1e47-b1de-40a7-9266-0e55f3b92a38"/>
+				<reportElement mode="Opaque" x="1" y="223" width="504" height="15" backcolor="#C0C0C0" uuid="890b1e47-b1de-40a7-9266-0e55f3b92a38"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="10" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["TURNO PREFERENCIA"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="19" y="252" width="245" height="20" uuid="096d9fc7-420f-4717-9a46-1f89e739a348"/>
-				<textFieldExpression><![CDATA["Solicita Turno: " + $F{turn}]]></textFieldExpression>
+				<reportElement x="19" y="241" width="245" height="20" uuid="096d9fc7-420f-4717-9a46-1f89e739a348"/>
+				<textFieldExpression><![CDATA["Solicita Turno: " + (($F{turn}==null)?"-":$F{turn})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="1" y="281" width="504" height="15" backcolor="#C0C0C0" uuid="4a7ad1d3-72e0-473f-9083-24d3408afee4"/>
+				<reportElement mode="Opaque" x="1" y="270" width="504" height="15" backcolor="#C0C0C0" uuid="4a7ad1d3-72e0-473f-9083-24d3408afee4"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="10" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["CURSILLO"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="233" y="300" width="266" height="20" uuid="2862aad7-fa30-415c-a405-fa196ce8744a"/>
-				<textFieldExpression><![CDATA["Nro. de Aula: " + $F{classroom_course} + " - Horario: " + $F{turn_couse}]]></textFieldExpression>
+				<reportElement x="233" y="289" width="266" height="20" uuid="2862aad7-fa30-415c-a405-fa196ce8744a"/>
+				<textFieldExpression><![CDATA[(($F{classroom_course}==null)? "":
+"Nro. de Aula: " + $F{classroom_course} + " - Horario: " + $F{turn_couse})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="19" y="300" width="154" height="20" uuid="50ebac8a-2d57-496f-b83e-63b98c8bc729"/>
+				<reportElement x="19" y="289" width="154" height="20" uuid="50ebac8a-2d57-496f-b83e-63b98c8bc729"/>
 				<textFieldExpression><![CDATA["Optó por cursar: " + (($F{classroom_course}==null)?"NO":"SI")]]></textFieldExpression>
 			</textField>
 		</band>
