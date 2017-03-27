@@ -18916,6 +18916,7 @@ CREATE TABLE yacare_admission.admission_form
 
   --closed
   admission_closed boolean default false,
+  date_closed timestamp,
 
   --nro de inscripcion de admision
   admission_serial bigserial NOT NULL,

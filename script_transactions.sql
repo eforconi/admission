@@ -362,6 +362,7 @@ BEGIN
 	--actualizar admision
 	update yacare_admission.admission_form
 	set admission_closed=true,
+	date_closed = (SELECT current_timestamp),
 	incomplete_docs = p_incomplete_docs,
 	incomplete_docs_desc = p_incomplete_docs_desc,
 	classroom_exam_id = vExamId,
