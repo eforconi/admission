@@ -1,0 +1,29 @@
+{
+  "docker": {
+    "socketPath": "/var/run/docker.sock"
+  },
+  "project": {
+    "volumes": {
+      "/opt/project/node_modules": "node_modules",
+      "/opt/project/package.json": "package.json",
+      "/opt/project/index.js": "index.js",
+      "/opt/project/lib": "lib",
+      "/opt/project/jasper": "jasper",
+      "/opt/project/inner-build": "inner-build"
+    },
+    "bk":{
+      "js": [
+        "index.js"
+      ]
+    },
+    "tar": [
+      "Dockerfile",
+      "entrypoint.sh",
+      "inner-build/*"
+    ]
+  },
+  "volumes": {
+    "/run/secrets/service.json": "/etc/nodejs-config/yacare_admission_backend.json"
+  },
+  "links": []
+}

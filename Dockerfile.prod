@@ -1,0 +1,16 @@
+FROM node:argon
+
+RUN apt-get update && apt-get install -y default-jdk
+RUN mkdir -p /opt/project/lib
+
+COPY lib/postgresql* /opt/project/lib/
+COPY lib/unpacked /opt/project/lib/unpacked
+WORKDIR /opt/project
+
+COPY package.json /opt/project/
+RUN NODE_ENV=production npm install
+COPY jasper /opt/project/jasper
+COPY index.js /opt/project/
+COPY Dockerfile.prod /opt/project/Dockerfile
+EXPOSE 80
+CMD ["npm", "start"]
