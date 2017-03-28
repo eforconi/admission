@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionFile" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="20" bottomMargin="20" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="528"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -88,7 +88,7 @@ WHERE aa.id=$P{id}]]>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="2" y="116" width="503" height="135" uuid="dc749cab-e83a-41df-816e-c1dab49c748a"/>
 				<textElement textAlignment="Justified" markup="styled">
-					<font fontName="SansSerif"/>
+					<font fontName="SansSerif" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tutor_names} + " tiene el agrado de dirigirse al señor Director a fin de solicitar el permiso correspondiente para rendir Examen de Ingreso a Primer Año del Colegio para " + (($F{gen_code_c} == null)?"el":(($F{gen_code_c}.booleanValue()==true)?"el":"la"))+ " aspirante, "+ $F{c_names} + " para lo cual adjunta la siguiente documentación:" +
 "\n"+
@@ -111,7 +111,7 @@ WHERE aa.id=$P{id}]]>
 			<textField isBlankWhenNull="true">
 				<reportElement x="3" y="60" width="251" height="50" uuid="d9c834b9-ba12-451d-b44b-eeacf12826d1"/>
 				<textElement textAlignment="Justified">
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="SansSerif" size="10" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Córdoba " + $F{date_form} +
 "\nAl Señor Director del" +

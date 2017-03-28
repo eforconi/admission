@@ -41,7 +41,7 @@ where aa.id = $P{id}]]>
 				</textElement>
 				<textFieldExpression><![CDATA["   Asimismo solicito la inscripción para el Curso de Nivelación - Ingreso a Primer Año del Colegio en el horario: " +
 "\n"+
-"\n        "+ $F{ship} +
+"\n        "+ (($F{ship}==null)?"--":$F{ship}) +
 "\n"+
 "\n Acepto que el Colegio de acuerdo a la cantidad de inscriptos para el Curso pueda disponer la inclusión " + (($F{gen_code_c} == null)?"del":(($F{gen_code_c}.booleanValue()==true)?"del":"de la")) + " aspirante en un horario distinto por el que optó."]]></textFieldExpression>
 			</textField>
