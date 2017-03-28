@@ -176,7 +176,7 @@ BEGIN
 			aspirant.school_shift_id, aspirant.s_first_name, aspirant.s_other_names, aspirant.s_surnames,
 			aspirant.s_dni_number, aspirant.s_division, aspirant.s_others_comment, aspirant.shift_1,
 			aspirant.incomplete_docs,aspirant.incomplete_docs_desc,
-			2018
+			(select yacare_admission.getYearCalendarActive())
 			from (select (x).* from (select p_aspirant as x) a) aspirant
 			cross join
 				(select (x).* from (select p_tutor1 as x) a) tutor1
@@ -362,6 +362,7 @@ BEGIN
 	--actualizar admision
 	update yacare_admission.admission_form
 	set admission_closed=true,
+	date_closed = (SELECT current_timestamp),
 	incomplete_docs = p_incomplete_docs,
 	incomplete_docs_desc = p_incomplete_docs_desc,
 	classroom_exam_id = vExamId,
@@ -515,8 +516,9 @@ BEGIN
 
 	RAISE NOTICE 'INIT CALCULATE YEAR ACTIVE';
 
-	select yacare.getyearcalendaractive()
-	into result;
+	select max(year) 
+	into result
+	from yacare_admission.year_calendar;
 
 	result:= result + 1;
 

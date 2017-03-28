@@ -68,6 +68,30 @@ INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_
 
 -----------------------------------------------------------------------------
 
+DROP TABLE IF EXISTS yacare_admission.year_calendar CASCADE;
+
+CREATE TABLE yacare_admission.year_calendar (
+
+  id character varying(255) NOT NULL,
+  state_enable boolean,
+  year integer,
+  comment character varying(255),
+  start_calendar date,
+  end_calendar date,
+  CONSTRAINT year_calendar_pkey PRIMARY KEY (id)
+
+);
+
+INSERT INTO yacare_admission.year_calendar(
+            id, state_enable, year, comment, start_calendar, end_calendar)
+    VALUES ('2c9090b551452f0c01515fbba8473a76', true, 2016, null, '2016-03-01', '2017-02-28');
+    
+INSERT INTO yacare_admission.year_calendar(
+            id, state_enable, year, comment, start_calendar, end_calendar)
+    VALUES ('2c9090b558f91cb30158f93d63900000', true, 2017, null, '2017-03-01', '2018-02-28');
+
+-----------------------------------------------------------------------------
+
 DROP TABLE IF EXISTS yacare_admission.country CASCADE;
 
 CREATE TABLE yacare_admission.country (
@@ -18892,6 +18916,7 @@ CREATE TABLE yacare_admission.admission_form
 
   --closed
   admission_closed boolean default false,
+  date_closed timestamp,
 
   --nro de inscripcion de admision
   admission_serial bigserial NOT NULL,

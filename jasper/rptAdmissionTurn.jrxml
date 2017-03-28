@@ -52,7 +52,7 @@ where aa.id = $P{id}]]>
 "\n"+
 "\n La elección se basa en el siguiente motivo:" +
 "\n"+
-"\n" + (($F{s_dni_number}==null)?$F{s_others_comment}:("Hermano en el Colegio: "+ $F{c_student}+ "\nDivisión: " + $F{s_division}))]]></textFieldExpression>
+"\n" + (($F{s_dni_number}==null)?$F{s_others_comment}:("Hermano en el Colegio: "+ $F{c_student}+ " - DNI:  " + $F{s_dni_number} + "\nDivisión: " + $F{s_division}))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="240" y="157" width="192" height="38" uuid="b32d90ea-eb03-481d-824d-9728058e9f92"/>

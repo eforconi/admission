@@ -48,8 +48,8 @@ COALESCE(aa.t1_address_zip_code,'--') t1_address_zip_code,
 COALESCE(aa.t1_address_locality,'--') t1_address_locality,
 COALESCE(aa.t1_address_comment,'--') t1_address_comment,
 COALESCE(aa.t1_email,'--') t1_email,
-trim(COALESCE(aa.t1_phone1_country_id,'') || ' ' || COALESCE(aa.t1_phone1_local_calling_code,'') || ' ' || COALESCE(aa.t1_phone1_number,null)) t1_phone1_number,
-trim(COALESCE(aa.t1_phone2_country_id,'') || ' ' || COALESCE(aa.t1_phone2_local_calling_code,'') || ' ' || COALESCE(aa.t1_phone2_number,null)) t1_phone2_number,
+trim(COALESCE(p1_t1.phone_code,'') || ' ' || COALESCE(aa.t1_phone1_local_calling_code,'') || ' ' || COALESCE(aa.t1_phone1_number,null)) t1_phone1_number,
+trim(COALESCE(p2_t1.phone_code,'') || ' ' || COALESCE(aa.t1_phone2_local_calling_code,'') || ' ' || COALESCE(aa.t1_phone2_number,null)) t1_phone2_number,
 fam_t1.name famT1,
 fam_t1.code famT1Code,
 
@@ -72,8 +72,8 @@ COALESCE(aa.t2_address_locality,'--') t2_address_locality,
 COALESCE(aa.t2_address_comment,'--') t2_address_comment,
 
 COALESCE(aa.t2_email,'--') t2_email,
-trim(COALESCE(aa.t2_phone1_country_id,'') || ' ' || COALESCE(aa.t2_phone1_local_calling_code,'') || ' ' || COALESCE(aa.t2_phone1_number,null)) t2_phone1_number,
-trim(COALESCE(aa.t2_phone2_country_id,'') || ' ' || COALESCE(aa.t2_phone2_local_calling_code,'') || ' ' || COALESCE(aa.t2_phone2_number,null)) t2_phone2_number,
+trim(COALESCE(p1_t2.phone_code,'') || ' ' || COALESCE(aa.t2_phone1_local_calling_code,'') || ' ' || COALESCE(aa.t2_phone1_number,null)) t2_phone1_number,
+trim(COALESCE(p2_t2.phone_code,'') || ' ' || COALESCE(aa.t2_phone2_local_calling_code,'') || ' ' || COALESCE(aa.t2_phone2_number,null)) t2_phone2_number,
 fam_t2.name famT2,
 fam_t2.code famT2Code
 
@@ -89,6 +89,10 @@ left join yacare_admission.country c_t1 on aa.t1_nationality_country_id = c_t1.i
 left join yacare_admission.country c_t2 on aa.t2_nationality_country_id = c_t2.id and c_t2.erased=false
 left join yacare.family_relationship_type fam_t1 on aa.t1_family_relationship_type_id = fam_t1.id
 left join yacare.family_relationship_type fam_t2 on aa.t2_family_relationship_type_id = fam_t2.id
+left join yacare_admission.country p1_t1 on aa.t1_phone1_country_id = p1_t1.id and p1_t1.erased=false
+left join yacare_admission.country p1_t2 on aa.t2_phone1_country_id = p1_t2.id and p1_t2.erased=false
+left join yacare_admission.country p2_t1 on aa.t1_phone2_country_id = p2_t1.id and p2_t1.erased=false
+left join yacare_admission.country p2_t2 on aa.t2_phone2_country_id = p2_t2.id and p2_t2.erased=false
 
 WHERE aa.id=$P{id}]]>
 	</queryString>
@@ -98,7 +102,7 @@ WHERE aa.id=$P{id}]]>
 	<field name="factor_c" class="java.lang.String"/>
 	<field name="group_c" class="java.lang.String"/>
 	<field name="c_birth_date" class="java.lang.String"/>
-	<field name="c_dni_number" class="java.lang.String"/>
+	<field name="c_dni_number" class="java.lang.Integer"/>
 	<field name="c_cuil_number" class="java.lang.String"/>
 	<field name="c_birth_country" class="java.lang.String"/>
 	<field name="c_birth_province" class="java.lang.String"/>
@@ -115,7 +119,7 @@ WHERE aa.id=$P{id}]]>
 	<field name="tutor1_names" class="java.lang.String"/>
 	<field name="gen_t1" class="java.lang.String"/>
 	<field name="t1_birth_date" class="java.lang.String"/>
-	<field name="t1_dni_number" class="java.lang.String"/>
+	<field name="t1_dni_number" class="java.lang.Integer"/>
 	<field name="t1_cuil_number" class="java.lang.String"/>
 	<field name="t1_profession" class="java.lang.String"/>
 	<field name="t1_nationality_country" class="java.lang.String"/>
@@ -136,7 +140,7 @@ WHERE aa.id=$P{id}]]>
 	<field name="tutor2_names" class="java.lang.String"/>
 	<field name="gen_t2" class="java.lang.String"/>
 	<field name="t2_birth_date" class="java.lang.String"/>
-	<field name="t2_dni_number" class="java.lang.String"/>
+	<field name="t2_dni_number" class="java.lang.Integer"/>
 	<field name="t2_cuil_number" class="java.lang.String"/>
 	<field name="t2_profession" class="java.lang.String"/>
 	<field name="t2_nationality_country" class="java.lang.String"/>
