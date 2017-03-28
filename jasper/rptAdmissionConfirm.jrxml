@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionConfirm" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="20" bottomMargin="20" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="4"/>
-	<property name="ireport.y" value="660"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="581"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -17,18 +17,18 @@ aa.c_dni_number,
  ELSE TRUE
 END) gen_code_c,
 aa.year_calendar,
-to_char(aa.date_closed, 'dd/MM/yyyy')date_closed,
-to_char(aa.date_closed, 'HH24:MI')time_closed,
-exa.description classroom_exam,
-cur.description classroom_course,
+COALESCE(to_char(aa.date_closed, 'dd/MM/yyyy'),'')date_closed,
+COALESCE(to_char(aa.date_closed, 'HH24:MI'),'')time_closed,
+COALESCE(exa.description,'') classroom_exam,
+COALESCE(cur.description,'') classroom_course,
 (CASE WHEN (aa.shift_1 IS NULL) THEN NULL
 	WHEN (aa.shift_1=FALSE) THEN '08:00 A 10:20'
 	WHEN (aa.shift_1=TRUE) THEN '10:30 A 12:50'
 END) turn_couse,
 trim(to_char(aa.admission_serial,'0000')) admission_serial,
 aa.incomplete_docs,
-aa.incomplete_docs_desc,
-ss.description turn
+COALESCE(aa.incomplete_docs_desc,'') incomplete_docs_desc,
+COALESCE(ss.description,'') turn
 from yacare_admission.admission_form aa
 left join yacare_admission.person_gender g_c on aa.c_person_gender_id= g_c.id and g_c.erased=false
 left join yacare_admission.classroom_exam exa on aa.classroom_exam_id = exa.id
@@ -166,7 +166,7 @@ WHERE aa.id=$P{id}]]>
 			<textField>
 				<reportElement x="233" y="289" width="266" height="20" uuid="2862aad7-fa30-415c-a405-fa196ce8744a"/>
 				<textFieldExpression><![CDATA[(($F{classroom_course}==null)? "":
-"Nro. de Aula: " + $F{classroom_course} + " - Horario: " + $F{turn_couse})]]></textFieldExpression>
+"Nro. de Aula: " + $F{classroom_course} + " - Horario: " + (($F{turn_couse}==null)?"--":$F{turn_couse}))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="19" y="289" width="154" height="20" uuid="50ebac8a-2d57-496f-b83e-63b98c8bc729"/>
