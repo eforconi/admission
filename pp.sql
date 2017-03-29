@@ -20,38 +20,38 @@ CREATE TABLE yacare_admission.classroom_exam
   CONSTRAINT classroom_exam_code_key UNIQUE (code)
 );
 
-
+--AULAS EXAMEN
 INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('1', '1', 42,42,false);
 INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('2', '2', 40,82,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('3', '3', 40,122,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('4', '4', 35,157,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('5', '5', 41,198,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('6', '6', 40,238,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('7', '7', 33,271,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('8', '8', 45,316,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('9', '9', 45,361,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('10', '10', 40,401,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('11', '11', 40,441,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('12', '12', 40,481,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('13', '13', 30,511,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('14', '14', 31,542,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('16', '16', 30,572,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('17', '17', 37,609,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('18', '18', 39,648,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('19', '19', 40,688,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('20', '20', 39,727,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('21', '21', 40,767,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('22', '22', 35,802,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('23', '23', 42,844,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('24', '24', 41,885,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('25', '25', 35,920,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('26', '26', 35,955,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('27', '27', 36,991,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('28', 'AULA A', 99,1090,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('29', 'AULA B', 99,1189,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('30', 'AULA C', 99,1288,false);
-INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('31', 'AULA D', 99,1387,false);
---
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('3', '3', 44,126,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('4', '4', 38,164,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('5', '5', 44,208,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('6', '6', 41,249,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('7', '7', 33,282,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('8', '8', 45,327,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('9', '9', 45,372,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('10', '10', 45,417,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('11', '11', 40,457,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('12', '12', 40,497,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('13', '13', 30,527,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('14', '14', 31,558,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('16', '16', 30,588,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('17', '17', 37,625,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('18', '18', 39,664,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('19', '19', 40,704,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('20', '20', 39,743,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('21', '21', 40,783,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('22', '22', 35,818,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('23', '23', 42,860,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('24', '24', 41,901,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('25', '25', 35,936,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('26', '26', 35,971,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('27', '27', 36,1007,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('28', 'AULA A', 99,1106,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('29', 'AULA B', 99,1205,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('30', 'AULA C', 99,1304,false);
+INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('31', 'AULA D', 99,1403,false);
+--AULAS CURSILLO
 INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('918', '18', 32,32,true);
 INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('919', '19', 32,64,true);
 INSERT INTO yacare_admission.classroom_exam (code, description, capacity, order_classroom,is_course) VALUES ('920', '20', 32,96,true);
