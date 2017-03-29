@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionFile" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="154"/>
+	<property name="ireport.y" value="282"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -319,42 +319,54 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["<style isBold='true'>Correo Electrónico:</style> " + $F{t1_email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="152" y="255" width="133" height="12" uuid="caef6e5a-cb8c-4863-b14d-9e3d61aedadf"/>
+				<reportElement x="152" y="255" width="133" height="12" uuid="caef6e5a-cb8c-4863-b14d-9e3d61aedadf">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>DNI:</style> " + (($F{t2_dni_number}==null)?"":$F{t2_dni_number})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="286" y="255" width="220" height="12" uuid="2bb57064-70d4-48fb-8489-55c589994239"/>
+				<reportElement x="286" y="255" width="220" height="12" uuid="2bb57064-70d4-48fb-8489-55c589994239">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Género:</style> " +$F{gen_t2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="242" width="126" height="12" uuid="0a1b96bc-09ba-4550-abb8-d5d81685a3be"/>
+				<reportElement x="380" y="242" width="126" height="12" uuid="0a1b96bc-09ba-4550-abb8-d5d81685a3be">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Relación Familiar:</style> " + $F{famt2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="307" width="245" height="12" uuid="f02283c2-f7ae-425f-af8b-246a6dc01380"/>
+				<reportElement x="4" y="306" width="245" height="12" uuid="f02283c2-f7ae-425f-af8b-246a6dc01380">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Telefono/s:</style> " +  (($F{t2_phone1_number}==null)? "": $F{t2_phone1_number}) + (($F{t2_phone2_number}==null)? "": " - " + $F{t2_phone2_number})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="242" width="375" height="12" uuid="83a35fd5-1432-4404-a537-71d774375810"/>
+				<reportElement x="4" y="242" width="375" height="12" uuid="83a35fd5-1432-4404-a537-71d774375810">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Apellido y Nombre</style>(según DNI): " + $F{tutor2_names}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="281" width="502" height="12" uuid="0b0b27ab-11a2-47c5-9ec5-1bcfa7c8c74c"/>
+				<reportElement x="4" y="280" width="502" height="12" uuid="0b0b27ab-11a2-47c5-9ec5-1bcfa7c8c74c">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -362,14 +374,18 @@ WHERE aa.id=$P{id}]]>
 + " Edificio:" + $F{t2_address_building}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="250" y="307" width="257" height="12" uuid="ad910afb-3395-4e9a-934f-28fd52361117"/>
+				<reportElement x="249" y="306" width="257" height="12" uuid="ad910afb-3395-4e9a-934f-28fd52361117">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Correo Electrónico:</style> " + $F{t2_email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="255" width="147" height="12" uuid="0bb919c3-8d09-4469-8011-cf0e2ad8f662"/>
+				<reportElement x="4" y="255" width="147" height="12" uuid="0bb919c3-8d09-4469-8011-cf0e2ad8f662">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -396,21 +412,27 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["<style isBold='true'>Nacionalidad:</style> " + $F{t1_nationality_country}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="286" y="268" width="220" height="12" uuid="47b6dfe8-8518-4157-8ce4-b47475daacc7"/>
+				<reportElement x="286" y="268" width="220" height="12" uuid="47b6dfe8-8518-4157-8ce4-b47475daacc7">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>CUIL:</style> " +$F{t2_cuil_number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="152" y="268" width="133" height="12" uuid="7e8dae01-cd3b-4529-af82-041eb1417dab"/>
+				<reportElement x="152" y="268" width="133" height="12" uuid="7e8dae01-cd3b-4529-af82-041eb1417dab">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Nacionalidad:</style> " + $F{t2_nationality_country}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="268" width="147" height="12" uuid="89460b91-d68c-4236-9ce3-fc710c13c980"/>
+				<reportElement x="4" y="267" width="147" height="12" uuid="89460b91-d68c-4236-9ce3-fc710c13c980">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -452,21 +474,27 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA[" <style isBold='true'>Ciudad:</style> " + $F{t1_address_locality}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="294" width="146" height="12" uuid="cd7c3a66-2652-4374-bc79-b4abf8207072"/>
+				<reportElement x="4" y="293" width="146" height="12" uuid="cd7c3a66-2652-4374-bc79-b4abf8207072">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Barrio:</style> " +$F{t2_address_neightbourhood}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="285" y="294" width="221" height="12" uuid="a0040350-cee9-489b-ac48-4da184764c29"/>
+				<reportElement x="285" y="294" width="221" height="12" uuid="a0040350-cee9-489b-ac48-4da184764c29">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" <style isBold='true'>Código Postal:</style> " + $F{t2_address_zip_code}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="151" y="294" width="133" height="12" uuid="b801445d-ff4d-43a9-a2b4-ebe953855f87"/>
+				<reportElement x="151" y="294" width="133" height="12" uuid="b801445d-ff4d-43a9-a2b4-ebe953855f87">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
@@ -487,14 +515,18 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["<style isBold='true'>Comentario:</style> " + $F{t1_address_comment}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="320" width="502" height="12" uuid="13cc28d5-97ea-477e-8656-480104a11610"/>
+				<reportElement x="4" y="319" width="502" height="12" uuid="13cc28d5-97ea-477e-8656-480104a11610">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["<style isBold='true'>Comentario:</style> " + $F{t2_address_comment}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="4" y="226" width="568" height="15" uuid="09add932-c8ef-4b21-8bea-e84a7885aa17"/>
+				<reportElement x="4" y="226" width="568" height="15" uuid="09add932-c8ef-4b21-8bea-e84a7885aa17">
+					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
