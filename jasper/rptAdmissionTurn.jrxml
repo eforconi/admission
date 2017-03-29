@@ -48,7 +48,7 @@ where aa.id = $P{id}]]>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression><![CDATA["   Por la presente y de acuerdo a la reglamentación vigente (Res.377/98 del H.C.S.) manifiesto que prefiero para mi hij" + (($F{gen_code_c} == null)?"o":(($F{gen_code_c}.booleanValue()==true)?"o":"a")) +
-" " + $F{c_names} + " aspirante al ingreso en ese Establecimiento el Turno " + $F{turn} + " para la asistencia a clase."+
+" " + $F{c_names} + " aspirante al ingreso en ese Establecimiento el <style isBold='TRUE'>Turno " + $F{turn} + "</style> para la asistencia a clase."+
 "\n"+
 "\n La elección se basa en el siguiente motivo:" +
 "\n"+
