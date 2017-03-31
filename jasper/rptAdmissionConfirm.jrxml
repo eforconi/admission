@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionConfirm" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="20" bottomMargin="20" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="581"/>
+	<property name="ireport.y" value="755"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -28,7 +28,8 @@ END) turn_couse,
 trim(to_char(aa.admission_serial,'0000')) admission_serial,
 aa.incomplete_docs,
 COALESCE(aa.incomplete_docs_desc,'') incomplete_docs_desc,
-COALESCE(ss.description,'') turn
+COALESCE(ss.description,'') turn,
+(select current_timestamp) as fechahora
 from yacare_admission.admission_form aa
 left join yacare_admission.person_gender g_c on aa.c_person_gender_id= g_c.id and g_c.erased=false
 left join yacare_admission.classroom_exam exa on aa.classroom_exam_id = exa.id
@@ -51,6 +52,7 @@ WHERE aa.id=$P{id}]]>
 	<field name="incomplete_docs" class="java.lang.Boolean"/>
 	<field name="incomplete_docs_desc" class="java.lang.String"/>
 	<field name="turn" class="java.lang.String"/>
+	<field name="fechahora" class="java.sql.Timestamp"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -181,8 +183,8 @@ WHERE aa.id=$P{id}]]>
 				<textElement>
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Córdoba, " + new SimpleDateFormat(" dd 'de' MMMM 'de' yyyy", new Locale("es","AR")).format(new java.util.Date()) + " - "
-+ new SimpleDateFormat("hh':'mm", new Locale("es","AR")).format(new java.util.Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Córdoba, " + new SimpleDateFormat(" dd 'de' MMMM 'de' yyyy", new Locale("es","AR")).format($F{fechahora}) + " - "
++ new SimpleDateFormat("hh':'mm", new Locale("es","AR")).format($F{fechahora})]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement positionType="Float" x="0" y="126" width="511" height="1" uuid="918aae37-5cf2-46a4-b5c4-bfde17f6dec5"/>
