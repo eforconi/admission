@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionFile" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="20" bottomMargin="20" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="99"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -72,13 +72,14 @@ WHERE aa.id=$P{id}]]>
 					<pen lineStyle="Double"/>
 				</graphicElement>
 			</line>
-			<staticText>
-				<reportElement x="3" y="13" width="506" height="20" uuid="c239ef0a-80d2-42d5-8142-ae9f1cf0b83e"/>
-				<textElement>
+			<textField>
+				<reportElement x="3" y="1" width="506" height="32" uuid="e50d1278-15d4-4325-b8c3-0fb297539583"/>
+				<textElement markup="styled">
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
-				<text><![CDATA[Bachiller Humanista con Orientación en Humanidades y Ciencias Sociales]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA["Bachiller Humanista con Orientación en Humanidades y Ciencias Sociales<sup>(*)</sup>" +
+"\n<style fontName='SansSerif' size='7' isBold='false'>(*)en proceso de aprobación de una nueva propuesta curricular</style>"]]></textFieldExpression>
+			</textField>
 			<textField>
 				<reportElement x="21" y="33" width="420" height="20" uuid="3a8d06bd-22d0-40e9-b254-edb49262bb15"/>
 				<textElement>
