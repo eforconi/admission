@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionFile" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="282"/>
+	<property name="ireport.x" value="294"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -168,7 +168,7 @@ WHERE aa.id=$P{id}]]>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="true" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[DATOS DEL ALUMNO]]></text>
+				<text><![CDATA[DATOS DEL ASPIRANTE]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="4" y="19" width="502" height="12" uuid="170995d2-af24-4c48-82a6-901526424550"/>
@@ -237,7 +237,7 @@ WHERE aa.id=$P{id}]]>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>Domicilio:</style> Calle: " +$F{c_address_street} + " N° " + $F{c_address_street_number} + " Piso:" + $F{c_address_floor} + " Departamento: "+ $F{c_address_room}
+				<textFieldExpression><![CDATA["<style isBold='true'>Domicilio de Notificación:</style> Calle: " +$F{c_address_street} + " N° " + $F{c_address_street_number} + " Piso:" + $F{c_address_floor} + " Departamento: "+ $F{c_address_room}
 + " Edificio:" + $F{c_address_building}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -312,11 +312,11 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["<style isBold='true'>Telefono/s:</style> " +  (($F{t1_phone1_number}==null)? "": $F{t1_phone1_number}) + (($F{t1_phone2_number}==null)? "": " - " + $F{t1_phone2_number})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="249" y="196" width="257" height="12" uuid="a015d0d7-7568-4be0-8ec1-d75684169ef3"/>
+				<reportElement x="249" y="196" width="323" height="12" uuid="a015d0d7-7568-4be0-8ec1-d75684169ef3"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>Correo Electrónico:</style> " + $F{t1_email}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold='true'>Correo Electrónico de Notificación:</style> " + $F{t1_email}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="152" y="255" width="133" height="12" uuid="caef6e5a-cb8c-4863-b14d-9e3d61aedadf">
@@ -374,13 +374,13 @@ WHERE aa.id=$P{id}]]>
 + " Edificio:" + $F{t2_address_building}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="249" y="306" width="257" height="12" uuid="ad910afb-3395-4e9a-934f-28fd52361117">
+				<reportElement x="249" y="306" width="323" height="12" uuid="ad910afb-3395-4e9a-934f-28fd52361117">
 					<printWhenExpression><![CDATA[($F{t2_dni_number}!=null)]]></printWhenExpression>
 				</reportElement>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="8" isBold="false" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["<style isBold='true'>Correo Electrónico:</style> " + $F{t2_email}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<style isBold='true'>Correo Electrónico de Notificación:</style> " + $F{t2_email}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="4" y="255" width="147" height="12" uuid="0bb919c3-8d09-4469-8011-cf0e2ad8f662">
