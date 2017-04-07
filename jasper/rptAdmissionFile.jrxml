@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionFile" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="20" bottomMargin="20" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="99"/>
+	<property name="ireport.y" value="867"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -18,7 +18,7 @@ trim(COALESCE(aa.c_surnames,'')|| ', ' || COALESCE(aa.c_first_name,'') || ' ' ||
 END) gen_code_c,
 trim(to_char(aa.admission_serial,'0000')) admission_serial,
 aa.year_calendar,
-(select current_timestamp) as fechahora
+to_char(now(),'dd/MM/yyyy HH24:mi') as fechahora
 from yacare_admission.admission_form aa
 left join yacare_admission.person_gender g_c on aa.c_person_gender_id= g_c.id and g_c.erased=false
 WHERE aa.id=$P{id}]]>
@@ -30,7 +30,7 @@ WHERE aa.id=$P{id}]]>
 	<field name="gen_code_c" class="java.lang.Boolean"/>
 	<field name="admission_serial" class="java.lang.String"/>
 	<field name="year_calendar" class="java.lang.Integer"/>
-	<field name="fechahora" class="java.sql.Timestamp"/>
+	<field name="fechahora" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -191,8 +191,7 @@ WHERE aa.id=$P{id}]]>
 				<textElement>
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Córdoba, " + new SimpleDateFormat(" dd 'de' MMMM 'de' yyyy", new Locale("es","AR")).format($F{fechahora}) + " - "
-+ new SimpleDateFormat("HH':'mm", new Locale("es","AR")).format($F{fechahora})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Córdoba, " + $F{fechahora}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="386" y="60" width="80" height="20" uuid="82ce85c0-5ce1-4bec-a28d-131dc2ddccc6"/>
