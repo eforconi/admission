@@ -547,35 +547,35 @@ BEGIN
 	--select to_char(now(),'MM')
 
 	--select to_char(to_timestamp('05/01/2017','dd/MM/yyyy'),'MM')
-  return query
-	select
-  	CASE
-      WHEN p_month = '01' THEN
-        'Enero'
-  	  WHEN p_month = '02' THEN
-  		  'Febrero'
-  	  WHEN p_month = '03' THEN
-  		  'Marzo'
-  	  WHEN p_month = '04' THEN
-  		  'Abril'
-  	  WHEN p_month = '05' THEN
-  		  'Mayo'
-  	  WHEN p_month = '06' THEN
-  		  'Junio'
-  	  WHEN p_month = '07' THEN
-  		  'Julio'
-  	  WHEN p_month = '08' THEN
-  		  'Agosto'
-  	  WHEN p_month = '09' THEN
-  		  'Septiembre'
-  	  WHEN p_month = '10' THEN
-  		  'Octubre'
-  	  WHEN p_month = '11' THEN
-  		  'Noviembre'
-  	  WHEN p_month = '12' THEN
-  		  'Diciembre'
-  	  ELSE '-'
-  	END as month_letters;
+  return
+  	select
+    	CASE
+        WHEN p_month = '01' THEN
+          'Enero'
+    	  WHEN p_month = '02' THEN
+    		  'Febrero'
+    	  WHEN p_month = '03' THEN
+    		  'Marzo'
+    	  WHEN p_month = '04' THEN
+    		  'Abril'
+    	  WHEN p_month = '05' THEN
+    		  'Mayo'
+    	  WHEN p_month = '06' THEN
+    		  'Junio'
+    	  WHEN p_month = '07' THEN
+    		  'Julio'
+    	  WHEN p_month = '08' THEN
+    		  'Agosto'
+    	  WHEN p_month = '09' THEN
+    		  'Septiembre'
+    	  WHEN p_month = '10' THEN
+    		  'Octubre'
+    	  WHEN p_month = '11' THEN
+    		  'Noviembre'
+    	  WHEN p_month = '12' THEN
+    		  'Diciembre'
+    	  ELSE '-'
+    	END as month_letters;
 
 
 	RAISE NOTICE 'DONE CALCULATE MONTH BY LETTERS';
