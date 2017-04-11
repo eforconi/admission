@@ -362,7 +362,7 @@ BEGIN
 	--actualizar admision
 	update yacare_admission.admission_form
 	set admission_closed=true,
-	date_closed = (SELECT current_timestamp),
+	date_closed = current_timestamp,
 	incomplete_docs = p_incomplete_docs,
 	incomplete_docs_desc = p_incomplete_docs_desc,
 	classroom_exam_id = vExamId,
@@ -516,7 +516,7 @@ BEGIN
 
 	RAISE NOTICE 'INIT CALCULATE YEAR ACTIVE';
 
-	select max(year) 
+	select max(year)
 	into result
 	from yacare_admission.year_calendar;
 

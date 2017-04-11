@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var config = require('/run/secrets/service');
+var config = require(process.env.CONF||'/run/secrets/service');
 var pg = require('pg');
 //var session = require('express-session');
 var parser = require('body-parser');
@@ -32,6 +32,21 @@ app.use(function(req, res, next) {
 var api = express.Router();
 
 app.use('/api', api);
+
+api.put('/admission/:id', function(req, res, next) {
+  var sql = "select yacare_admission.update_admission_closed($1, $2, $3) as confirmed";
+  pool.connect(function(err, client, done) {
+    if(err) return console.log('No se pudo obtener cliente pg '+err);
+    client.query(sql, [req.params.id, req.body.incomplete_docs, req.body.incomplete_docs_desc], function(err, result) {
+      done(err);
+      if(err) {
+        console.log(err);
+        return res.status(500).send('Ha ocurrido un error');
+      }
+      res.json(result.rows[0]);
+    });
+  });
+});
 
 api.post('/admission', function(req, res, next) {
   pool.connect(function(err, client, done) {
@@ -95,6 +110,113 @@ api.post('/admission', function(req, res, next) {
     .catch(function(err) {
       console.log(err);
       res.status(500).send('Ha ocurrido un error');
+    });
+  });
+});
+
+api.get('/admission', function(req, res, next) {
+  var phs = [];
+  var data = [];
+  var orderBy = " order by date_form desc";
+  var limit = '';
+  if(req.query) {
+    if(req.query.filter) {
+      var filter = JSON.parse(req.query.filter);
+      for(var i in filter) {
+        if(filter[i]==='') continue;
+        data.push(filter[i]);
+        switch (i) {
+          case 'date_from':
+            phs.push("f.date_form::date >= $"+data.length+"::date");
+            break;
+          case 'date_to':
+            phs.push("f.date_form::date <= $"+data.length+"::date");
+            break;
+          case 'text':
+            var ors = ['f.admission_serial', 'f.c_dni_number', 'f.c_cuil_number', 'f.c_surnames', 'f.c_first_name', 'f.c_other_names', 'e.description', 's.description'].map(function(i) {
+              return i+"::varchar ~* ('^'||$"+data.length+"::varchar)";
+            });
+            phs.push(ors.join(' or '));
+            break;
+        }
+      }
+    }
+    if(req.query.order) {
+      var type = ' asc';
+      if(req.query.order[0]=='-') {
+        type = ' desc';
+        req.query.order = req.query.order.substr(1);
+      }
+      switch(req.query.order) {
+        case "classroom_exam":
+          req.query.order = 'e.description';
+          break;
+        case "school_shift":
+          req.query.order = 's.description';
+          break;
+        case "c_full_name":
+          req.query.order = "f.c_surnames||', '||f.c_first_name||coalesce(' '||f.c_other_names,'')";
+          break;
+        case "shift":
+          req.query.order = 'c.shift_1';
+          break;
+        default:
+          req.query.order = 'f.'+req.query.order;
+      }
+      orderBy = " order by "+req.query.order+type;
+    }
+    if(req.query.limit) {
+      limit = ' limit '+req.query.limit+' offset '+(req.query.offset||'0');
+    }
+  }
+  var sql =
+  "select   f.id, "+
+          " f.admission_serial, "+
+          " to_char(f.date_form, 'DD/MM/YYYY HH:MI') as date_form, "+
+          " f.c_dni_number, "+
+          " f.c_cuil_number, "+
+          " upper(f.c_surnames||', '||f.c_first_name||coalesce(' '||f.c_other_names,'')) as c_full_name, "+
+          " f.admission_closed, "+
+          " e.description as classroom_exam, "+
+          " s.description as school_shift, "+
+          " f.incomplete_docs, "+
+          " f.incomplete_docs_desc, "+
+          " case when f.shift_1 = true then '8:00 a 10:20' when f.shift_1 = false then '10:30 a 12:50' else null end as shift, "+
+          " upper(f.t1_surnames||', '||f.t1_first_name||coalesce(' '||f.t1_other_names,'')) as t1_full_name, "+
+          " f.t1_dni_number, "+
+          " ft1.name as t1_family_relationship_type, "+
+          " upper(f.t2_surnames||', '||f.t2_first_name||coalesce(' '||f.t2_other_names,'')) as t2_full_name, "+
+          " f.t2_dni_number, "+
+          " ft2.name as t2_family_relationship_type, "+
+          " date_part('year', age(current_date, f.c_birth_date)) as c_age "+
+  "from     yacare_admission.admission_form f "+
+  "left join "+
+  "         yacare_admission.classroom_exam e "+
+  "on       e.id = f.classroom_exam_id "+
+  "         and not e.erased "+
+  "left join "+
+  "         yacare_admission.school_shift s "+
+  "on       s.id = f.school_shift_id "+
+  "         and not s.erased "+
+  "inner join "+
+  "         yacare_admission.family_relationship_type ft1 "+
+  "on       ft1.id = f.t1_family_relationship_type_id "+
+  "         and not ft1.erased "+
+  "left join "+
+  "         yacare_admission.family_relationship_type ft2 "+
+  "on       ft2.id = f.t2_family_relationship_type_id "+
+  "         and not ft1.erased "+
+  (phs.length?' where '+phs.join(' and '):'')+orderBy+limit;
+
+  pool.connect(function(err, client, done) {
+    if(err) return console.log('No se pudo obtener cliente pg '+err);
+    client.query(sql, data, function(err, result) {
+      done(err);
+      if(err) {
+        console.log(err);
+        return res.status(500).send('Ha ocurrido un error');
+      }
+      res.json(result.rows);
     });
   });
 });
@@ -280,6 +402,35 @@ api.get('/:id/pdf', function(req, res, next) {
   console.log(req.params);
   res.set('Content-Type', 'application/pdf');
   res.send(pdf);
+});
+
+api.get('/:id/confirm', function(req, res, next) {
+  var pdf = jasper.pdf({
+    report: {
+      jasper: path.join(__dirname,'jasper','rptAdmissionConfirm.jasper')
+    },
+    data: req.params
+  });
+  console.log(req.params);
+  res.set('Content-Type', 'application/pdf');
+  res.send(pdf);
+});
+
+api.get('/user', function(req, res, next) {
+  if(!req.query.user) return res.status(400).send("Bad Request");
+  var sql = "select * from yacare_admission.user where name = $1 and not erased";
+  pool.connect(function(err, client, done) {
+    if(err) return console.log('No se pudo obtener cliente pg '+err);
+    client.query(sql, [req.query.user], function(err, result) {
+      done(err);
+      if(err) {
+        console.log(err);
+        return res.status(500).send('Ha ocurrido un error');
+      }
+      if(!result.rows||!result.rows.length) return res.status(403).send("Forbidden Access");
+      res.json(result.rows[0]);
+    });
+  });
 });
 
 app.listen(80);
