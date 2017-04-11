@@ -51,19 +51,19 @@ api.put('/admission/:id', function(req, res, next) {
 api.post('/admission', function(req, res, next) {
   pool.connect(function(err, client, done) {
     if(err) return console.log('No se pudo obtener cliente pg '+err);
-    var typeSql = `
-      select  t.typname,
-              t.typtype,
-              attname,
-              a.typname,
-              a.typtype,
-              attnum
-      from pg_type t
-      join pg_class on (reltype = t.oid)
-      join pg_attribute on (attrelid = pg_class.oid)
-      join pg_type a on (atttypid = a.oid)
-      where t.typname = $1
-      order by attnum;`;
+    var typeSql = 
+      'select  t.typname, '+
+      '        t.typtype, '+
+      '        attname, '+
+      '        a.typname, '+
+      '        a.typtype, '+
+      '        attnum '+
+      'from pg_type t '+
+      'join pg_class on (reltype = t.oid) '+
+      'join pg_attribute on (attrelid = pg_class.oid) '+
+      'join pg_type a on (atttypid = a.oid) '+
+      'where t.typname = $1 '+
+      'order by attnum;';
     Promise.all([
       new Promise(function(resolve, reject) {
         client.query(typeSql, ['t_aspirant'], function(err, result) {
