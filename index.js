@@ -433,4 +433,4 @@ api.get('/user', function(req, res, next) {
   });
 });
 
-app.listen(80);
+app.listen(config.port||80);
