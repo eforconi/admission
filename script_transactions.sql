@@ -533,4 +533,64 @@ $BODY$
   COST 100;
 
 --SELECT yacare_admission.getYearCalendarActive()
---CONSULTAR ADMISSION FORM
+
+
+--ANIO CALENDARIO ACTIVO
+CREATE OR REPLACE FUNCTION yacare_admission.getMonthbyLetters(p_month character varying)
+
+  RETURNS character varying AS
+$BODY$
+DECLARE
+
+result character varying;
+
+
+
+BEGIN
+
+	RAISE NOTICE 'INIT CALCULATE MONTH';
+
+	--select to_char(now(),'MM')
+
+	--select to_char(to_timestamp('05/01/2017','dd/MM/yyyy'),'MM')
+	select 
+	(CASE WHEN p_month = '01' THEN
+		'Enero'
+	CASE WHEN p_month = '02' THEN
+		'Febrero'
+	CASE WHEN p_month = '03' THEN
+		'Marzo'
+	CASE WHEN p_month = '04' THEN
+		'Abril'
+	CASE WHEN p_month = '05' THEN
+		'Mayo'
+	CASE WHEN p_month = '06' THEN
+		'Junio'
+	CASE WHEN p_month = '07' THEN
+		'Julio'
+	CASE WHEN p_month = '08' THEN
+		'Agosto'
+	CASE WHEN p_month = '09' THEN
+		'Septiembre'
+	CASE WHEN p_month = '10' THEN
+		'Octubre'
+	CASE WHEN p_month = '11' THEN
+		'Noviembre'
+	CASE WHEN p_month = '12' THEN
+		'Diciembre'
+	ELSE '-'
+	
+	END) month_letters
+	into result
+	;
+
+	
+	RAISE NOTICE 'DONE CALCULATE MONTH BY LETTERS';
+
+	RETURN result;
+
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
