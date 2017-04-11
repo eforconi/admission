@@ -540,6 +540,8 @@ CREATE OR REPLACE FUNCTION yacare_admission.getMonthbyLetters(p_month character 
 
   RETURNS character varying AS
 $BODY$
+DECLARE
+  result character varying;
 BEGIN
 
 	RAISE NOTICE 'INIT CALCULATE MONTH';
@@ -547,7 +549,6 @@ BEGIN
 	--select to_char(now(),'MM')
 
 	--select to_char(to_timestamp('05/01/2017','dd/MM/yyyy'),'MM')
-  return
   	select
     	CASE
         WHEN p_month = '01' THEN
@@ -575,10 +576,13 @@ BEGIN
     	  WHEN p_month = '12' THEN
     		  'Diciembre'
     	  ELSE '-'
-    	END as month_letters;
+    	END as month_letters
+      into result;
 
 
 	RAISE NOTICE 'DONE CALCULATE MONTH BY LETTERS';
+
+  RETURN result;
 
 END;
 $BODY$
