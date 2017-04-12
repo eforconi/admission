@@ -176,7 +176,7 @@ BEGIN
 			aspirant.school_shift_id, aspirant.s_first_name, aspirant.s_other_names, aspirant.s_surnames,
 			aspirant.s_dni_number, aspirant.s_division, aspirant.s_others_comment, aspirant.shift_1,
 			aspirant.incomplete_docs,aspirant.incomplete_docs_desc,
-			(select yacare_admission.getYearCalendarActive())
+			yacare_admission.getYearCalendarActive()
 			from (select (x).* from (select p_aspirant as x) a) aspirant
 			cross join
 				(select (x).* from (select p_tutor1 as x) a) tutor1
@@ -362,7 +362,7 @@ BEGIN
 	--actualizar admision
 	update yacare_admission.admission_form
 	set admission_closed=true,
-	date_closed = (SELECT current_timestamp),
+	date_closed = current_timestamp,
 	incomplete_docs = p_incomplete_docs,
 	incomplete_docs_desc = p_incomplete_docs_desc,
 	classroom_exam_id = vExamId,
@@ -516,7 +516,7 @@ BEGIN
 
 	RAISE NOTICE 'INIT CALCULATE YEAR ACTIVE';
 
-	select max(year) 
+	select max(year)
 	into result
 	from yacare_admission.year_calendar;
 
@@ -533,4 +533,58 @@ $BODY$
   COST 100;
 
 --SELECT yacare_admission.getYearCalendarActive()
---CONSULTAR ADMISSION FORM
+
+
+--ANIO CALENDARIO ACTIVO
+CREATE OR REPLACE FUNCTION yacare_admission.getMonthbyLetters(p_month character varying)
+
+  RETURNS character varying AS
+$BODY$
+DECLARE
+  result character varying;
+BEGIN
+
+	RAISE NOTICE 'INIT CALCULATE MONTH';
+
+	--select to_char(now(),'MM')
+
+	--select to_char(to_timestamp('05/01/2017','dd/MM/yyyy'),'MM')
+  	select
+    	CASE
+        WHEN p_month = '01' THEN
+          'Enero'
+    	  WHEN p_month = '02' THEN
+    		  'Febrero'
+    	  WHEN p_month = '03' THEN
+    		  'Marzo'
+    	  WHEN p_month = '04' THEN
+    		  'Abril'
+    	  WHEN p_month = '05' THEN
+    		  'Mayo'
+    	  WHEN p_month = '06' THEN
+    		  'Junio'
+    	  WHEN p_month = '07' THEN
+    		  'Julio'
+    	  WHEN p_month = '08' THEN
+    		  'Agosto'
+    	  WHEN p_month = '09' THEN
+    		  'Septiembre'
+    	  WHEN p_month = '10' THEN
+    		  'Octubre'
+    	  WHEN p_month = '11' THEN
+    		  'Noviembre'
+    	  WHEN p_month = '12' THEN
+    		  'Diciembre'
+    	  ELSE '-'
+    	END as month_letters
+      into result;
+
+
+	RAISE NOTICE 'DONE CALCULATE MONTH BY LETTERS';
+
+  RETURN result;
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;

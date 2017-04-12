@@ -4,6 +4,14 @@ CREATE SCHEMA yacare_admission; -- AUTHORIZATION postgres;
 
 -----------------------------------------------------------------------------
 
+DROP TABLE IF EXISTS yacare_admission.user CASCADE;
+create table yacare_admission.user
+(
+    id character varying not null default uuid_generate_v4() primary key,
+    erased boolean not null default false,
+    name character varying not null
+);
+
 DROP TABLE IF EXISTS yacare_admission.classroom_exam CASCADE;
 
 CREATE TABLE yacare_admission.classroom_exam
@@ -85,7 +93,7 @@ CREATE TABLE yacare_admission.year_calendar (
 INSERT INTO yacare_admission.year_calendar(
             id, state_enable, year, comment, start_calendar, end_calendar)
     VALUES ('2c9090b551452f0c01515fbba8473a76', true, 2016, null, '2016-03-01', '2017-02-28');
-    
+
 INSERT INTO yacare_admission.year_calendar(
             id, state_enable, year, comment, start_calendar, end_calendar)
     VALUES ('2c9090b558f91cb30158f93d63900000', true, 2017, null, '2017-03-01', '2018-02-28');
