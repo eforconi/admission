@@ -10,6 +10,7 @@ var request = require('request');
 var fs = require('fs');
 var path = require('path');
 var jasper = require('node-jasper')(config.jasper);
+var Promise = require('promise');
 
 if(process.env.NODE_ENV == 'ci-testing') {
   url += '-ci-testing';
@@ -51,7 +52,7 @@ api.put('/admission/:id', function(req, res, next) {
 api.post('/admission', function(req, res, next) {
   pool.connect(function(err, client, done) {
     if(err) return console.log('No se pudo obtener cliente pg '+err);
-    var typeSql = 
+    var typeSql =
       'select  t.typname, '+
       '        t.typtype, '+
       '        attname, '+
