@@ -41,4 +41,7 @@ $BODY$
   COST 100;
 
 
---select yacare_admission.insert_user('34243419');
+select yacare_admission.insert_user('34243419');
+select yacare_admission.insert_user('27231058457');
+select yacare_admission.insert_user('27906');
+select yacare_admission.insert_user('49118');

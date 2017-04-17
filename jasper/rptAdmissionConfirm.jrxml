@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptAdmissionConfirm" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="20" bottomMargin="20" uuid="c06f6664-5ee4-446e-adec-731b0c0a8818">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="755"/>
+	<property name="ireport.y" value="249"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["./"]]></defaultValueExpression>
 	</parameter>
@@ -125,7 +125,7 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["EXAMEN DE INGRESO"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="19" y="105" width="154" height="20" uuid="d5844772-8ba7-4542-b817-deb3715ae48d"/>
+				<reportElement x="19" y="105" width="214" height="20" uuid="d5844772-8ba7-4542-b817-deb3715ae48d"/>
 				<textFieldExpression><![CDATA["Nro. de Aula: " + (($F{classroom_exam}==null)?"-":$F{classroom_exam})]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -140,8 +140,8 @@ WHERE aa.id=$P{id}]]>
 				<textFieldExpression><![CDATA["DOCUMENTACIÓN PRESENTADA"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="19" y="150" width="154" height="20" uuid="58ab3a98-a637-44ce-a3c0-16cb55356c3f"/>
-				<textFieldExpression><![CDATA["Completa: " + (($F{incomplete_docs}.booleanValue()==true)? "SI":"NO")]]></textFieldExpression>
+				<reportElement x="19" y="150" width="204" height="20" uuid="58ab3a98-a637-44ce-a3c0-16cb55356c3f"/>
+				<textFieldExpression><![CDATA["Completa: " + (($F{incomplete_docs}.booleanValue()==true)? "NO":"SI")]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="19" y="173" width="480" height="43" uuid="ab7404ff-fd3d-41a9-9984-8a492965a5c1"/>
