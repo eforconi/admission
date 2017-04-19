@@ -146,7 +146,7 @@ BEGIN
 			    s_dni_number, s_division, s_others_comment, shift_1,
 			    incomplete_docs, incomplete_docs_desc,
 			    year_calendar)
-			select vId, (SELECT CURRENT_DATE),
+			select vId, current_timestamp,
 				aspirant.c_first_name, aspirant.c_other_names, aspirant.c_surnames, aspirant.c_person_gender_id,
 				aspirant.c_dni_number, aspirant.c_cuil_number, aspirant.c_person_blood_factor_id, aspirant.c_person_blood_group_id,
 				aspirant.c_birth_date, aspirant.c_birth_country_id, aspirant.c_birth_province_id, aspirant.c_birth_locality,
