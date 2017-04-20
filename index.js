@@ -35,7 +35,7 @@ var api = express.Router();
 app.use('/api', api);
 
 api.get('/numbers', function(req, res, next) {
-  var sql = "select 34 as total, 22 as confirmed, 12 as vacant, 15 as shift_1, 19 as shift_2";
+  var sql = "select yacare_admission.calculate_inscription() as total, yacare_admission.calculate_confirm() as confirmed, yacare_admission.calculate_vacant_exam() as vacant, yacare_admission.calculate_course_1() as shift_1, yacare_admission.calculate_course_2() as shift_2";
   pool.connect(function(err, client, done) {
     if(err) return console.log('No se pudo obtener cliente pg '+err);
     client.query(sql, function(err, result) {
@@ -188,7 +188,7 @@ api.get('/admission', function(req, res, next) {
   var sql =
   "select   f.id, "+
           " f.admission_serial, "+
-          " to_char(f.date_form, 'DD/MM/YYYY HH24:MI') as date_form, "+
+          " to_char(f.date_form - interval '3 hours', 'DD/MM/YYYY HH24:MI') as date_form, "+
           " f.c_dni_number, "+
           " f.c_cuil_number, "+
           " upper(f.c_surnames||', '||f.c_first_name||coalesce(' '||f.c_other_names,'')) as c_full_name, "+
