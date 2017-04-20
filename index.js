@@ -188,7 +188,7 @@ api.get('/admission', function(req, res, next) {
   var sql =
   "select   f.id, "+
           " f.admission_serial, "+
-          " to_char(f.date_form - interval '3 hours', 'DD/MM/YYYY HH24:MI') as date_form, "+
+          " to_char(f.date_form, 'DD/MM/YYYY HH24:MI') as date_form, "+
           " f.c_dni_number, "+
           " f.c_cuil_number, "+
           " upper(f.c_surnames||', '||f.c_first_name||coalesce(' '||f.c_other_names,'')) as c_full_name, "+
