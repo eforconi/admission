@@ -34,6 +34,21 @@ var api = express.Router();
 
 app.use('/api', api);
 
+api.get('/numbers', function(req, res, next) {
+  var sql = "select 34 as total, 22 as confirmed, 12 as vacant, 15 as shift_1, 19 as shift_2";
+  pool.connect(function(err, client, done) {
+    if(err) return console.log('No se pudo obtener cliente pg '+err);
+    client.query(sql, function(err, result) {
+      done(err);
+      if(err) {
+        console.log(err);
+        return res.status(500).send('Ha ocurrido un error');
+      }
+      res.json(result.rows[0]);
+    });
+  });
+});
+
 api.put('/admission/:id', function(req, res, next) {
   var sql = "select yacare_admission.update_admission_closed($1, $2, $3) as confirmed";
   pool.connect(function(err, client, done) {
@@ -173,7 +188,7 @@ api.get('/admission', function(req, res, next) {
   var sql =
   "select   f.id, "+
           " f.admission_serial, "+
-          " to_char(f.date_form, 'DD/MM/YYYY HH:MI') as date_form, "+
+          " to_char(f.date_form, 'DD/MM/YYYY HH24:MI') as date_form, "+
           " f.c_dni_number, "+
           " f.c_cuil_number, "+
           " upper(f.c_surnames||', '||f.c_first_name||coalesce(' '||f.c_other_names,'')) as c_full_name, "+
