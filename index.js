@@ -35,7 +35,7 @@ var api = express.Router();
 app.use('/api', api);
 
 api.get('/numbers', function(req, res, next) {
-  var sql = "select 34 as total, 22 as confirmed, 12 as vacant, 15 as shift_1, 19 as shift_2";
+  var sql = "select yacare_admission.calculate_inscription() as total, yacare_admission.calculate_confirm() as confirmed, yacare_admission.calculate_vacant_exam() as vacant, yacare_admission.calculate_course_1() as shift_1, yacare_admission.calculate_course_2() as shift_2";
   pool.connect(function(err, client, done) {
     if(err) return console.log('No se pudo obtener cliente pg '+err);
     client.query(sql, function(err, result) {
